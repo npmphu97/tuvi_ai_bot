@@ -80,3 +80,53 @@ body {
   border-radius: 9999px;
   background: var(--brand-gold);
 }
+
+/* Blog markdown rendered output */
+.blog-prose h2 {
+  @apply mt-10 mb-4 text-2xl font-semibold text-[#5a3a1a] leading-snug;
+}
+.blog-prose h3 {
+  @apply mt-7 mb-3 text-xl font-semibold text-[#0f0a08] leading-snug;
+}
+.blog-prose h4 {
+  @apply mt-5 mb-2 text-lg font-semibold text-[#5a3a1a];
+}
+.blog-prose p {
+  @apply my-4 leading-[1.85] text-[#0f0a08];
+}
+.blog-prose strong {
+  @apply font-semibold text-[#5a3a1a];
+}
+.blog-prose em {
+  @apply italic text-[#4a3a30];
+}
+.blog-prose a {
+  @apply text-[#4a6c7a] underline decoration-[#4a6c7a]/40 underline-offset-2 hover:decoration-[#4a6c7a];
+}
+.blog-prose ul {
+  @apply my-4 space-y-2 list-disc pl-6 marker:text-[#c89146];
+}
+.blog-prose ol {
+  @apply my-4 space-y-2 list-decimal pl-6 marker:text-[#5a3a1a] marker:font-semibold;
+}
+.blog-prose li {
+  @apply leading-[1.8] text-[#0f0a08];
+}
+.blog-prose blockquote {
+  @apply my-6 border-l-4 border-[#c89146] bg-[#c89146]/10 px-5 py-3 italic text-[#4a3a30];
+}
+.blog-prose hr {
+  @apply my-8 border-t border-[#c89146]/40;
+}
+.blog-prose code {
+  @apply bg-[#5a3a1a]/10 px-1.5 py-0.5 rounded text-[14px] text-[#5a3a1a];
+}
+.blog-prose table {
+  @apply my-6 w-full border-collapse text-[14.5px];
+}
+.blog-prose th {
+  @apply border border-[#c89146]/40 bg-[#c89146]/15 px-3 py-2 text-left font-semibold text-[#5a3a1a];
+}
+.blog-prose td {
+  @apply border border-[#c89146]/30 px-3 py-2 align-top;
+}

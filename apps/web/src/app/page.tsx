@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import HomeClient from '@/components/home/HomeClient';
+import { getAllPosts } from '@/lib/blog';
 
 export const metadata: Metadata = {
   title: 'Vận Mệnh — Tử Vi, Tứ Trụ, Tarot, Phong Thủy',
@@ -9,5 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomeClient />;
+  const featuredPosts = getAllPosts().slice(0, 6);
+  return <HomeClient featuredPosts={featuredPosts} />;
 }

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-tt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5a3a1a"/>
+      <stop offset="55%" stop-color="#2a1c14"/>
+      <stop offset="100%" stop-color="#0f0a08"/>
+    </linearGradient>
+    <linearGradient id="col-tt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c89146" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#5a3a1a" stop-opacity="0.4"/>
+    </linearGradient>
+    <radialGradient id="ctr-tt" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c89146" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#c89146" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg-tt)"/>
+  <ellipse cx="600" cy="400" rx="500" ry="380" fill="url(#ctr-tt)"/>
+
+  <!-- 4 columns Năm-Tháng-Ngày-Giờ -->
+  <g font-family="Cormorant Garamond, serif" text-anchor="middle">
+    <!-- Column labels -->
+    <g font-size="22" fill="#c89146" opacity="0.85">
+      <text x="380" y="130">NĂM</text>
+      <text x="520" y="130">THÁNG</text>
+      <text x="680" y="130">NGÀY</text>
+      <text x="820" y="130">GIỜ</text>
+    </g>
+
+    <!-- Column rectangles -->
+    <g stroke="#c89146" stroke-width="2" fill="url(#col-tt)" opacity="0.55">
+      <rect x="335" y="160" width="90" height="380" rx="8"/>
+      <rect x="475" y="160" width="90" height="380" rx="8"/>
+      <rect x="635" y="160" width="90" height="380" rx="8"/>
+      <rect x="775" y="160" width="90" height="380" rx="8"/>
+    </g>
+
+    <!-- Thiên Can (top half) -->
+    <g font-size="56" fill="#fbf3e2" font-style="italic">
+      <text x="380" y="270">甲</text>
+      <text x="520" y="270">丙</text>
+      <text x="680" y="270">癸</text>
+      <text x="820" y="270">丁</text>
+    </g>
+    <!-- Divider -->
+    <g stroke="#c89146" stroke-opacity="0.5" stroke-dasharray="4 6">
+      <line x1="335" y1="350" x2="425" y2="350"/>
+      <line x1="475" y1="350" x2="565" y2="350"/>
+      <line x1="635" y1="350" x2="725" y2="350"/>
+      <line x1="775" y1="350" x2="865" y2="350"/>
+    </g>
+    <!-- Địa Chi (bottom half) -->
+    <g font-size="56" fill="#e9d4b6" font-style="italic">
+      <text x="380" y="450">子</text>
+      <text x="520" y="450">寅</text>
+      <text x="680" y="450">卯</text>
+      <text x="820" y="450">巳</text>
+    </g>
+  </g>
+
+  <!-- Wuxing pentagon at bottom -->
+  <g transform="translate(600 670)" font-family="Cormorant Garamond, serif" font-size="20" fill="#c89146">
+    <polygon points="0,-50 48,-15 30,42 -30,42 -48,-15" fill="none" stroke="#c89146" stroke-opacity="0.6" stroke-width="1.2"/>
+    <polygon points="0,-50 30,42 -48,-15 48,-15 -30,42" fill="none" stroke="#c89146" stroke-opacity="0.25" stroke-width="0.8"/>
+    <text x="0" y="-62" text-anchor="middle">木</text>
+    <text x="60" y="-12" text-anchor="middle" dy="0.35em">火</text>
+    <text x="40" y="60" text-anchor="middle">土</text>
+    <text x="-40" y="60" text-anchor="middle">金</text>
+    <text x="-60" y="-12" text-anchor="middle" dy="0.35em">水</text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="600" y="612" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="22" fill="#e9d4b6" opacity="0.8">八字 · BÁT TỰ</text>
+</svg>

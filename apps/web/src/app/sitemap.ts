@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/env';
 import { ZODIAC_DETAILS } from '@/lib/zodiac-detail';
+import { getAllPosts } from '@/lib/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/tu-tru-bat-tu', priority: 0.9, changeFrequency: 'weekly' },
     { path: '/hoang-dao', priority: 0.8, changeFrequency: 'weekly' },
     { path: '/ngay-tot', priority: 0.8, changeFrequency: 'daily' },
+    { path: '/blog', priority: 0.8, changeFrequency: 'weekly' },
     { path: '/chinh-sach-bao-mat', priority: 0.3, changeFrequency: 'yearly' },
     { path: '/dieu-khoan-su-dung', priority: 0.3, changeFrequency: 'yearly' },
   ];
@@ -23,6 +25,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const blogRoutes = getAllPosts().map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: new Date(p.updatedAt ?? p.publishedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes.map((r) => ({
       url: `${SITE_URL}${r.path}`,
@@ -31,5 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: r.priority,
     })),
     ...zodiacRoutes,
+    ...blogRoutes,
   ];
 }

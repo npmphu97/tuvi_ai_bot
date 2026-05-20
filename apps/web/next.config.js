@@ -22,6 +22,10 @@ const nextConfig = {
         pathname: '/metabismuth/tarot-json/**',
       },
     ],
+    // Cho phép local SVG (blog covers ở /public/images/blog/*.svg). Chỉ self-hosted,
+    // không nhận SVG từ user upload → safe. CSP đính kèm chặn inline scripts trong SVG.
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
     serverActions: {

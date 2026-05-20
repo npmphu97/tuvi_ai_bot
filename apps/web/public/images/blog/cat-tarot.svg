@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-tr" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f0a08"/>
+      <stop offset="55%" stop-color="#2a1c14"/>
+      <stop offset="100%" stop-color="#1a1208"/>
+    </linearGradient>
+    <linearGradient id="card-tr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a3a1a"/>
+      <stop offset="100%" stop-color="#2a1c14"/>
+    </linearGradient>
+    <radialGradient id="moon-tr" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e9d4b6" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#e9d4b6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg-tr)"/>
+
+  <!-- Moon glow background -->
+  <circle cx="600" cy="280" r="280" fill="url(#moon-tr)" opacity="0.55"/>
+  <circle cx="600" cy="280" r="100" fill="#e9d4b6" opacity="0.18"/>
+  <circle cx="600" cy="280" r="60" fill="#fbf3e2" opacity="0.35"/>
+
+  <!-- Fan of 5 tarot cards -->
+  <g transform="translate(600 600)">
+    <!-- Card 5 (rightmost) -->
+    <g transform="rotate(28) translate(-110 -180)">
+      <rect width="220" height="340" rx="14" fill="url(#card-tr)" stroke="#c89146" stroke-width="2"/>
+      <rect x="10" y="10" width="200" height="320" rx="8" fill="none" stroke="#c89146" stroke-opacity="0.6" stroke-width="1"/>
+      <text x="110" y="180" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="80" fill="#c89146" font-style="italic">XX</text>
+      <polygon points="110,60 116,80 137,80 120,93 127,113 110,100 93,113 100,93 83,80 104,80" fill="#c89146" opacity="0.8"/>
+    </g>
+    <!-- Card 4 -->
+    <g transform="rotate(14) translate(-110 -200)">
+      <rect width="220" height="340" rx="14" fill="url(#card-tr)" stroke="#c89146" stroke-width="2"/>
+      <rect x="10" y="10" width="200" height="320" rx="8" fill="none" stroke="#c89146" stroke-opacity="0.6" stroke-width="1"/>
+      <text x="110" y="180" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="80" fill="#c89146" font-style="italic">XV</text>
+      <polygon points="110,60 116,80 137,80 120,93 127,113 110,100 93,113 100,93 83,80 104,80" fill="#c89146" opacity="0.8"/>
+    </g>
+    <!-- Card 3 (center) -->
+    <g transform="translate(-110 -210)">
+      <rect width="220" height="340" rx="14" fill="url(#card-tr)" stroke="#e9d4b6" stroke-width="3"/>
+      <rect x="10" y="10" width="200" height="320" rx="8" fill="none" stroke="#c89146" stroke-opacity="0.8" stroke-width="1"/>
+      <text x="110" y="180" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="92" fill="#e9d4b6" font-style="italic">0</text>
+      <text x="110" y="280" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="22" fill="#c89146" font-style="italic">THE FOOL</text>
+      <polygon points="110,60 117,82 140,82 121,96 128,118 110,104 92,118 99,96 80,82 103,82" fill="#e9d4b6" opacity="0.85"/>
+    </g>
+    <!-- Card 2 -->
+    <g transform="rotate(-14) translate(-110 -200)">
+      <rect width="220" height="340" rx="14" fill="url(#card-tr)" stroke="#c89146" stroke-width="2"/>
+      <rect x="10" y="10" width="200" height="320" rx="8" fill="none" stroke="#c89146" stroke-opacity="0.6" stroke-width="1"/>
+      <text x="110" y="180" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="80" fill="#c89146" font-style="italic">VI</text>
+      <polygon points="110,60 116,80 137,80 120,93 127,113 110,100 93,113 100,93 83,80 104,80" fill="#c89146" opacity="0.8"/>
+    </g>
+    <!-- Card 1 (leftmost) -->
+    <g transform="rotate(-28) translate(-110 -180)">
+      <rect width="220" height="340" rx="14" fill="url(#card-tr)" stroke="#c89146" stroke-width="2"/>
+      <rect x="10" y="10" width="200" height="320" rx="8" fill="none" stroke="#c89146" stroke-opacity="0.6" stroke-width="1"/>
+      <text x="110" y="180" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="80" fill="#c89146" font-style="italic">I</text>
+      <polygon points="110,60 116,80 137,80 120,93 127,113 110,100 93,113 100,93 83,80 104,80" fill="#c89146" opacity="0.8"/>
+    </g>
+  </g>
+
+  <!-- Scattered stars -->
+  <g fill="#e9d4b6">
+    <circle cx="120" cy="120" r="2" opacity="0.8"/>
+    <circle cx="1080" cy="160" r="2.5" opacity="0.9"/>
+    <circle cx="200" cy="250" r="1.5" opacity="0.6"/>
+    <circle cx="980" cy="300" r="1.8" opacity="0.7"/>
+    <circle cx="80" cy="450" r="1.5" opacity="0.5"/>
+    <circle cx="1130" cy="500" r="2" opacity="0.7"/>
+    <circle cx="350" cy="90" r="1.5" opacity="0.7"/>
+    <circle cx="850" cy="120" r="1.8" opacity="0.8"/>
+  </g>
+</svg>

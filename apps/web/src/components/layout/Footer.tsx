@@ -58,6 +58,11 @@ export default function Footer() {
                 12 Con Giáp
               </Link>
             </li>
+            <li>
+              <Link href="/blog" className="hover:text-[#d4af6a]">
+                Blog Kiến Thức
+              </Link>
+            </li>
           </ul>
         </div>
         <div>

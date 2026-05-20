@@ -16,7 +16,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "Xem Ngày Tốt", href: "/ngay-tot" },
   { label: "Hoàng Đạo", href: "/hoang-dao" },
   { label: "Tarot", href: "/xem-tarot" },
-  { label: "Lục Diệu", href: "/#lucdieu" },
+  { label: "Blog", href: "/blog" },
 ];
 
 function isActive(href: string, pathname: string): boolean {

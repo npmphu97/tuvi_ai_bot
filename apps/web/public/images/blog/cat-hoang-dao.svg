@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-hd" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2a35"/>
+      <stop offset="50%" stop-color="#2a1c20"/>
+      <stop offset="100%" stop-color="#0f0a08"/>
+    </linearGradient>
+    <radialGradient id="sun-hd" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c89146" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#c89146" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#c89146" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg-hd)"/>
+  <ellipse cx="600" cy="400" rx="380" ry="320" fill="url(#sun-hd)" opacity="0.55"/>
+
+  <!-- Outer ring -->
+  <g transform="translate(600 400)" fill="none" stroke="#c89146" stroke-opacity="0.6">
+    <circle r="330" stroke-width="1.5"/>
+    <circle r="280" stroke-width="0.8" stroke-dasharray="2 6"/>
+    <circle r="135" stroke-width="1.2"/>
+    <circle r="105" stroke-width="0.6"/>
+  </g>
+
+  <!-- 12 zodiac symbols around the ring -->
+  <g transform="translate(600 400)" font-family="Cormorant Garamond, serif" font-size="48" fill="#e9d4b6">
+    <text x="0" y="-302" text-anchor="middle" dy="0.35em">♈</text>
+    <text x="151" y="-262" text-anchor="middle" dy="0.35em">♉</text>
+    <text x="262" y="-151" text-anchor="middle" dy="0.35em">♊</text>
+    <text x="302" y="0" text-anchor="middle" dy="0.35em">♋</text>
+    <text x="262" y="151" text-anchor="middle" dy="0.35em">♌</text>
+    <text x="151" y="262" text-anchor="middle" dy="0.35em">♍</text>
+    <text x="0" y="302" text-anchor="middle" dy="0.35em">♎</text>
+    <text x="-151" y="262" text-anchor="middle" dy="0.35em">♏</text>
+    <text x="-262" y="151" text-anchor="middle" dy="0.35em">♐</text>
+    <text x="-302" y="0" text-anchor="middle" dy="0.35em">♑</text>
+    <text x="-262" y="-151" text-anchor="middle" dy="0.35em">♒</text>
+    <text x="-151" y="-262" text-anchor="middle" dy="0.35em">♓</text>
+  </g>
+
+  <!-- Central sun with rays -->
+  <g transform="translate(600 400)">
+    <g stroke="#c89146" stroke-width="2" opacity="0.8">
+      <line x1="0" y1="-90" x2="0" y2="-115"/>
+      <line x1="64" y1="-64" x2="82" y2="-82"/>
+      <line x1="90" y1="0" x2="115" y2="0"/>
+      <line x1="64" y1="64" x2="82" y2="82"/>
+      <line x1="0" y1="90" x2="0" y2="115"/>
+      <line x1="-64" y1="64" x2="-82" y2="82"/>
+      <line x1="-90" y1="0" x2="-115" y2="0"/>
+      <line x1="-64" y1="-64" x2="-82" y2="-82"/>
+    </g>
+    <circle r="80" fill="#c89146" opacity="0.9"/>
+    <circle r="65" fill="none" stroke="#fbf3e2" stroke-width="1" opacity="0.7"/>
+    <circle r="6" fill="#fbf3e2"/>
+  </g>
+
+  <!-- Stars scattered -->
+  <g fill="#e9d4b6">
+    <circle cx="100" cy="100" r="2" opacity="0.7"/>
+    <circle cx="1100" cy="120" r="2.5" opacity="0.8"/>
+    <circle cx="80" cy="700" r="2" opacity="0.6"/>
+    <circle cx="1120" cy="680" r="2.2" opacity="0.7"/>
+    <circle cx="300" cy="80" r="1.5" opacity="0.6"/>
+    <circle cx="900" cy="720" r="1.8" opacity="0.6"/>
+    <circle cx="160" cy="450" r="1.5" opacity="0.5"/>
+    <circle cx="1050" cy="420" r="1.5" opacity="0.5"/>
+  </g>
+</svg>

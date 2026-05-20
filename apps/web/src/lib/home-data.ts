@@ -40,12 +40,6 @@ export type LucDieu = {
 
 export type LucDieuTone = { fg: string; bg: string };
 
-export type Article = {
-  tag: string;
-  title: string;
-  read: string;
-};
-
 export type TarotCard = {
   id: number;
   num: string;
@@ -117,15 +111,6 @@ export const LUC_DIEU_TONE: Record<string, LucDieuTone> = {
   'Lưu Niên': { fg: '#7a5a8a', bg: '#7a5a8a0d' },
   'Tốc Hỷ': { fg: '#3a8a5e', bg: '#3a8a5e0d' },
 };
-
-export const ARTICLES: Article[] = [
-  { tag: 'Tử Vi', title: 'Cách Cục Tử Vi Bính Ngọ 2026 — Năm bản lề của thập kỷ', read: '12 phút' },
-  { tag: 'Tarot', title: 'Hiểu lá The Tower: khi Tòa Tháp đổ là phước lành', read: '8 phút' },
-  { tag: 'Phong Thủy', title: 'Bố trí phòng ngủ đón Tài — 7 nguyên tắc cổ truyền', read: '6 phút' },
-  { tag: 'Bát Tự', title: 'Đọc Thiên Can Địa Chi — bước đầu hiểu lá Tứ Trụ', read: '15 phút' },
-  { tag: 'Tâm Linh', title: 'Đêm Trừ Tịch và những điều nên làm trước Giao Thừa', read: '5 phút' },
-  { tag: 'Xem Ngày', title: 'Ngày Tam Nương — sự thật ít người biết', read: '9 phút' },
-];
 
 export const TAROT_DECK: TarotCard[] = [
   { id: 0, num: '0', name: 'The Fool', vn: 'Kẻ Khờ', keywords: ['Khởi đầu', 'Hồn nhiên', 'Phiêu lưu'], past: 'Một quyết định bồng bột trong quá khứ đã đưa bạn rẽ sang một ngã đường mới — đáng lẽ bạn phải biết ơn vì sự ngây thơ ấy.', present: 'Vũ trụ đang mời bạn bước một bước đầu tiên. Đừng tính toán quá nhiều, hãy tin vào trực giác.', future: 'Một hành trình tươi mới đang chờ. Hành trang nhẹ, lòng nhẹ — đó là tất cả những gì bạn cần.' },

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-tv" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5a3a1a"/>
+      <stop offset="55%" stop-color="#2a1c14"/>
+      <stop offset="100%" stop-color="#0f0a08"/>
+    </linearGradient>
+    <radialGradient id="glow-tv" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c89146" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#c89146" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-tv"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg-tv)"/>
+  <ellipse cx="600" cy="400" rx="500" ry="380" fill="url(#glow-tv)"/>
+
+  <!-- Outer ring of 12 cung địa chi -->
+  <g transform="translate(600 400)" fill="none" stroke="#c89146" stroke-opacity="0.55">
+    <circle r="320" stroke-width="1.5"/>
+    <circle r="240" stroke-width="1"/>
+    <circle r="170" stroke-width="0.8" stroke-dasharray="3 5"/>
+  </g>
+
+  <!-- 12 địa chi label positions -->
+  <g transform="translate(600 400)" font-family="Cormorant Garamond, serif" font-size="34" fill="#e9d4b6">
+    <text x="0" y="-300" text-anchor="middle">子</text>
+    <text x="155" y="-265" text-anchor="middle">丑</text>
+    <text x="265" y="-155" text-anchor="middle">寅</text>
+    <text x="305" y="0" text-anchor="middle" dy="0.35em">卯</text>
+    <text x="265" y="155" text-anchor="middle">辰</text>
+    <text x="155" y="265" text-anchor="middle">巳</text>
+    <text x="0" y="300" text-anchor="middle">午</text>
+    <text x="-155" y="265" text-anchor="middle">未</text>
+    <text x="-265" y="155" text-anchor="middle">申</text>
+    <text x="-305" y="0" text-anchor="middle" dy="0.35em">酉</text>
+    <text x="-265" y="-155" text-anchor="middle">戌</text>
+    <text x="-155" y="-265" text-anchor="middle">亥</text>
+  </g>
+
+  <!-- 12 spokes -->
+  <g transform="translate(600 400)" stroke="#c89146" stroke-opacity="0.18" stroke-width="0.8">
+    <line x1="0" y1="-240" x2="0" y2="-170"/>
+    <line x1="120" y1="-208" x2="85" y2="-147"/>
+    <line x1="208" y1="-120" x2="147" y2="-85"/>
+    <line x1="240" y1="0" x2="170" y2="0"/>
+    <line x1="208" y1="120" x2="147" y2="85"/>
+    <line x1="120" y1="208" x2="85" y2="147"/>
+    <line x1="0" y1="240" x2="0" y2="170"/>
+    <line x1="-120" y1="208" x2="-85" y2="147"/>
+    <line x1="-208" y1="120" x2="-147" y2="85"/>
+    <line x1="-240" y1="0" x2="-170" y2="0"/>
+    <line x1="-208" y1="-120" x2="-147" y2="-85"/>
+    <line x1="-120" y1="-208" x2="-85" y2="-147"/>
+  </g>
+
+  <!-- Central star Tử Vi -->
+  <g transform="translate(600 400)">
+    <polygon points="0,-80 22,-25 78,-25 32,8 50,62 0,30 -50,62 -32,8 -78,-25 -22,-25" fill="#c89146" stroke="#e9d4b6" stroke-width="1"/>
+    <text y="120" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="42" fill="#fbf3e2" font-style="italic">紫微</text>
+  </g>
+
+  <!-- Scattered small stars -->
+  <g fill="#e9d4b6" opacity="0.7">
+    <circle cx="180" cy="160" r="2.5"/>
+    <circle cx="1020" cy="180" r="2"/>
+    <circle cx="100" cy="600" r="2"/>
+    <circle cx="1100" cy="650" r="2.5"/>
+    <circle cx="950" cy="80" r="1.5"/>
+    <circle cx="250" cy="720" r="1.5"/>
+  </g>
+</svg>

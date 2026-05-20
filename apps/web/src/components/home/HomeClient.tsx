@@ -1,15 +1,16 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
-  ARTICLES,
   HOROSCOPE,
   LUC_DIEU,
   LUC_DIEU_TONE,
   SERVICES,
   ZODIAC,
 } from '@/lib/home-data';
+import { CATEGORY_LABEL, type BlogPostMeta } from '@/lib/blog-shared';
 import { getSignToday } from '@/lib/horoscope-lib';
 import { useDailyHoroscope } from '@/lib/use-daily-horoscope';
 
@@ -495,7 +496,7 @@ function LucDieuSection() {
   );
 }
 
-function Articles() {
+function Articles({ posts }: { posts: BlogPostMeta[] }) {
   return (
     <section id="articles" className="relative py-20 px-6">
       <div className="max-w-7xl mx-auto">
@@ -511,37 +512,48 @@ function Articles() {
               Bài viết <em className="text-[#4a6c7a]">tuyển chọn</em>
             </h2>
           </div>
-          <a href="#" className="text-[#5a3a1a] hover:text-[#4a6c7a] text-sm">
+          <Link href="/blog" className="text-[#5a3a1a] hover:text-[#4a6c7a] text-sm">
             Tất cả bài viết →
-          </a>
+          </Link>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {ARTICLES.map((a, i) => (
-            <a
-              key={i}
-              href="#"
-              className="group rounded-2xl border border-[#c89146]/55 bg-[#fbf3e2]/92 p-6 hover:border-[#4a6c7a]/60 hover:-translate-y-1 transition-all"
+          {posts.map((post) => (
+            <Link
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="group rounded-2xl border border-[#c89146]/55 bg-[#fbf3e2]/92 overflow-hidden hover:border-[#4a6c7a]/60 hover:-translate-y-1 transition-all flex flex-col"
             >
-              <div className="flex items-center gap-3 text-xs">
-                <span className="px-2.5 py-1 rounded-full bg-[#5a3a1a]/10 text-[#5a3a1a] tracking-wider">
-                  {a.tag}
-                </span>
-                <span className="text-[#4a3a30]">·</span>
-                <span className="text-[#0f0a08]">{a.read}</span>
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image
+                  src={post.coverResolved}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
-              <h3
-                className="mt-4 text-xl font-serif text-[#0f0a08] leading-snug group-hover:text-[#4a6c7a]"
-                style={{ fontFamily: SERIF_FONT }}
-              >
-                {a.title}
-              </h3>
-              <div className="mt-5 inline-flex items-center gap-2 text-[#5a3a1a] text-sm">
-                Đọc tiếp{' '}
-                <span className="transition-transform group-hover:translate-x-1">
-                  →
-                </span>
+              <div className="p-6 flex-1 flex flex-col">
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="px-2.5 py-1 rounded-full bg-[#5a3a1a]/10 text-[#5a3a1a] tracking-wider">
+                    {CATEGORY_LABEL[post.category]}
+                  </span>
+                  <span className="text-[#4a3a30]">·</span>
+                  <span className="text-[#0f0a08]">{post.readingMinutes} phút đọc</span>
+                </div>
+                <h3
+                  className="mt-4 text-xl font-serif text-[#0f0a08] leading-snug group-hover:text-[#4a6c7a]"
+                  style={{ fontFamily: SERIF_FONT }}
+                >
+                  {post.title}
+                </h3>
+                <div className="mt-auto pt-5 inline-flex items-center gap-2 text-[#5a3a1a] text-sm">
+                  Đọc tiếp{' '}
+                  <span className="transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -549,7 +561,11 @@ function Articles() {
   );
 }
 
-export default function HomeClient() {
+export default function HomeClient({
+  featuredPosts,
+}: {
+  featuredPosts: BlogPostMeta[];
+}) {
   return (
     <div className="relative text-[#0f0a08]">
       <Hero />
@@ -557,7 +573,7 @@ export default function HomeClient() {
       <ZodiacRing />
       <LucDieuSection />
       <Horoscope />
-      <Articles />
+      <Articles posts={featuredPosts} />
     </div>
   );
 }
