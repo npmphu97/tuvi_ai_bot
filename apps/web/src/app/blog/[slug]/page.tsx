@@ -116,35 +116,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             </ul>
           </aside>
         )}
-
-        <div className="mt-12 p-6 rounded-xl bg-gradient-to-br from-[#0f0a08] via-[#2a1c14] to-[#5a3a1a] text-[#fbf3e2]">
-          <h2 className="text-xl font-semibold text-[#e9d4b6]">
-            Lập lá số ngay với AI
-          </h2>
-          <p className="mt-2 text-[14px] text-[#e9d4b6]/85">
-            Trải nghiệm luận giải Tử Vi, Tarot, Tứ Trụ và 12 cung Hoàng Đạo cá nhân hóa bằng AI Deepseek.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link
-              href="/xem-tu-vi"
-              className="px-4 py-2 rounded-full bg-[#c89146] text-[#0f0a08] font-semibold text-[13px] hover:bg-[#e9d4b6] transition"
-            >
-              Xem Tử Vi · 40k
-            </Link>
-            <Link
-              href="/xem-tarot"
-              className="px-4 py-2 rounded-full border border-[#c89146]/70 text-[#e9d4b6] font-medium text-[13px] hover:bg-[#c89146]/20 transition"
-            >
-              Bói Tarot · 5k
-            </Link>
-            <Link
-              href="/tu-tru-bat-tu"
-              className="px-4 py-2 rounded-full border border-[#c89146]/70 text-[#e9d4b6] font-medium text-[13px] hover:bg-[#c89146]/20 transition"
-            >
-              Tứ Trụ · 40k
-            </Link>
-          </div>
-        </div>
       </main>
     </>
   );
