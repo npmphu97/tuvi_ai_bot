@@ -19,7 +19,22 @@ export {
   type BlogPostMeta,
 } from './blog-shared';
 
-const BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
+// Resolve robust để hoạt động cả khi build chạy từ apps/web (local) lẫn từ monorepo
+// root (CF Workers Build). CF Build invokes `pnpm cf:build` từ repo root → process.cwd()
+// = repo root → path.join(cwd, 'src/content/blog') sai → empty getAllPosts() → sitemap
+// thiếu blog routes + /blog/[slug] 404.
+function resolveBlogDir(): string {
+  const candidates = [
+    path.join(process.cwd(), 'src', 'content', 'blog'),
+    path.join(process.cwd(), 'apps', 'web', 'src', 'content', 'blog'),
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  return candidates[0];
+}
+
+const BLOG_DIR = resolveBlogDir();
 
 marked.setOptions({ gfm: true, breaks: false });
 
