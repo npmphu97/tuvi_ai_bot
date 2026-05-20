@@ -23,6 +23,85 @@
 
 <!-- Entry mới thêm ở TRÊN cùng -->
 
+### 2026-05-20 — Blog markdown system 15 posts + CF Workers fs debugging
+
+**Đang làm:** Build full blog system Markdown-based cho SEO (15 bài 5 chủ đề) — listing Substack-style + detail page + home featured + map ảnh thật user upload + debug 3 vòng deploy CF Workers (filesystem ops không hoạt động runtime).
+
+**Đến đâu rồi:**
+- ✅ 15 .md blog posts mỗi bài 800-1500 từ (Tử Vi 4 / Tarot 3 / Hoàng Đạo 3 / Tứ Trụ 3 / Ngày Tốt 2) với frontmatter SEO đầy đủ (title, description, keywords, publishedAt, category, cover)
+- ✅ Hệ thống `lib/blog.ts` + `lib/blog-shared.ts` (split để tránh `node:fs` bundle vào client) + `scripts/build-blog-data.mjs` (pre-build .md → JSON)
+- ✅ `/blog` listing Substack-style 1-cột với thumbnail + filter dropdown qua URL `?cat=` (server-side)
+- ✅ `/blog/[slug]` detail Article + Breadcrumb JSON-LD + Related posts
+- ✅ Header thêm "Blog" (thay "Lục Diệu"), Footer thêm "Blog Kiến Thức"
+- ✅ Home `Articles` section thay hardcoded `ARTICLES` array → 6 latest posts từ `getAllPosts()`
+- ✅ Sitemap auto include 16 URL mới (1 /blog + 15 detail)
+- ✅ Bỏ visible hero image trong detail page (giữ schema image cho SEO Google rich snippet)
+- ✅ Bỏ section "Lập lá số ngay với AI" CTA cuối detail
+- ✅ 5 SVG cover fallback per category + 15 photo covers (12 .avif + 3 .jpg user upload từ Unsplash) map per-post
+- ✅ CF Workers Build deploy: 3 vòng fix → cuối cùng JSON pre-build approach work
+- ✅ Prod verify: sitemap = 36 URLs ✓, /blog/[slug] HTTP 200 ✓
+- ✅ IndexNow submit 36 URLs cho Bing + Yandex (200 OK)
+- ⏳ User manual pending: GSC Request Indexing 5-6 URL ưu tiên
+
+**Files đã sửa (9 commits, ~50 files):**
+
+Code structure (rewrite blog data layer):
+- `apps/web/src/lib/blog.ts` — rewrite 3 lần: (1) fs.readdirSync trực tiếp, (2) robust path resolution, (3) import JSON static
+- `apps/web/src/lib/blog-shared.ts` (MỚI) — client-safe types + `CATEGORY_LABEL` (tránh `node:fs` leak vào client bundle)
+- `apps/web/src/lib/blog-data.json` (MỚI 159KB) — pre-generated từ 15 .md
+- `apps/web/scripts/build-blog-data.mjs` (MỚI) — đọc .md + gray-matter + marked → JSON tại build time
+- `apps/web/package.json` — chain `prebuild`/`predev`/`precf:build` (JSON auto fresh)
+
+Pages + components:
+- `apps/web/src/app/blog/page.tsx` (MỚI) — Substack list + filter `?cat=` + JSON-LD CollectionPage
+- `apps/web/src/app/blog/[slug]/page.tsx` (MỚI) — detail Article + Breadcrumb + related (gỡ hero img + CTA section sau)
+- `apps/web/src/app/page.tsx` — pass `featuredPosts` server → client HomeClient
+- `apps/web/src/components/home/HomeClient.tsx` — `Articles({posts})` real data với cover image hover zoom
+- `apps/web/src/lib/home-data.ts` — xoá `Article` type + `ARTICLES` const (dead code sau refactor)
+- `apps/web/src/components/layout/Header.tsx` — Blog nav (thay Lục Diệu)
+- `apps/web/src/components/layout/Footer.tsx` — Blog link
+- `apps/web/src/app/sitemap.ts` — thêm blogRoutes from `getAllPosts()`
+- `apps/web/src/app/globals.css` — `.blog-prose` markdown styles (h2/h3, list, blockquote, table, code)
+- `apps/web/next.config.js` — `dangerouslyAllowSVG: true` + CSP `sandbox` cho local SVG covers
+
+Content + assets:
+- 15 `apps/web/src/content/blog/*.md` (~800-1500 từ/bài)
+- 5 `apps/web/public/images/blog/cat-*.svg` (category fallback covers)
+- 15 photo covers Unsplash trong `apps/web/public/images/blog/`
+
+**Đáng nhớ về kỹ thuật (4 bug đã vấp):**
+
+1. **`node:fs` bundle vào client bundle (UnhandledSchemeError webpack):** HomeClient.tsx (`'use client'`) import `CATEGORY_LABEL` từ `lib/blog.ts` → webpack pull cả `import fs from 'node:fs'` vào client bundle → fail. **Fix:** Tách `lib/blog-shared.ts` chứa client-safe constants + types, `lib/blog.ts` re-export thêm fs ops. Pattern: **bất cứ const/type nào shared client+server đều phải nằm ở file không có node: imports**.
+
+2. **CF Workers Build runtime KHÔNG support `fs.readdirSync` ổn định (3 vòng fix):**
+   - Sitemap `○` static + `/blog/[slug]` `●` SSG đều dùng fs runtime
+   - Local build OK (sitemap 36, SSG đủ 15 routes)
+   - Deploy CF prod → sitemap 21 (no blog routes) + /blog/[slug] 404
+   - **Vòng 1 fail:** `resolveBlogDir()` thử 2 candidate (apps/web vs monorepo root cwd) — không phải vấn đề cwd
+   - **Vòng 2 fail:** `outputFileTracingIncludes` force Next bundle `.md` — CF tracing không pick up
+   - **Vòng 3 work:** Pre-build `scripts/build-blog-data.mjs` lúc build → JSON 159KB → `lib/blog.ts` import statically → CF serve từ worker bundle, không cần fs runtime
+   - **Pattern chốt:** Mọi feature đọc filesystem runtime PHẢI pre-build sang JSON/JS const + static import nếu deploy CF Workers / edge runtime. Test phải VERIFY TRÊN PROD, không chỉ local.
+
+3. **GH push rejected: OAuth thiếu workflow scope:** push commit có `.github/workflows/ci.yml` → GitHub từ chối. User chấp nhận làm IndexNow tay, revert ci.yml workflow auto. Workflow file đã ready local nhưng không commit (cần re-auth `gh auth refresh -s workflow` nếu sau muốn wire auto).
+
+4. **YAML indentation root khác standard:** ci.yml dùng 2-space root indent (`name: CI` ở column 3). Khi thêm job `indexnow:` ở column 3 → cùng level `jobs:` → invalid structure. **Fix:** đếm bytes bằng `awk` show indent markers, sửa lên 4-space (sibling của `build:`). Pattern: **kiểm tra indent bằng od/awk khi sửa file YAML thừa kế style khác convention chuẩn**.
+
+**Bug nhỏ phụ:** Soft reset HEAD~1 không tác dụng lần đầu (silent fail), lần thứ 2 work.
+
+**Blocker:** Không. Tất cả feature live trên prod, indexing queue đã trigger.
+
+**Việc tiếp theo:**
+1. **User manual (cần làm ngay):** GSC Request Indexing 5-6 URL ưu tiên — `/blog`, `/blog/tu-vi-dau-so-la-gi`, `/blog/12-cung-hoang-dao-tinh-cach`, `/blog/tu-tru-bat-tu-la-gi`, `/blog/78-la-bai-tarot-major-minor-arcana`, `/blog/cach-chon-ngay-tot-lich-van-nien`. Quota ~10/ngày.
+2. Hôm sau submit 10 URL còn lại cho GSC.
+3. Verify sau 1-3 ngày: `site:luangiaivanmenh.com/blog` trong Google search box.
+4. (Optional) Wire ci.yml auto IndexNow workflow — cần `gh auth refresh -s workflow` rồi commit + push file workflow đã ready (chưa stage).
+5. (Optional) Add `patterns.md` entry: "CF Workers + filesystem → luôn pre-build JSON, không fs runtime".
+6. (Optional) Add `bugs-solved.md` entries cho 4 bug trên.
+7. (Optional) Improve content quality post-indexing: thêm internal link giữa các bài blog cùng category, thêm FAQ schema cho top 5 bài (đã có helper `faqSchema()`), bổ sung backlink off-page.
+8. (Optional) Per-post bespoke SVG cover (15 unique design) nếu muốn replace category-shared cover hiện tại.
+
+---
+
 ### 2026-05-19 (session 4) — FAQ schema + GA4 purchase event + SEO docs/skills
 
 **Đang làm:** Tiếp scope 4 cái xanh sau session 3 + tạo bộ docs/skills cho SEO. Hai cái xanh code-only đã hoàn thành (FAQ + GA4 purchase). Hai cái còn lại (OG 1200×630 custom + per-zodiac image) defer vì cần design assets. Sau đó user yêu cầu document hoá SEO workflow thành reference + skills.
