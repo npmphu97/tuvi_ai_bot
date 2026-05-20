@@ -23,6 +23,66 @@
 
 <!-- Entry mới thêm ở TRÊN cùng -->
 
+### 2026-05-19 (session 4) — FAQ schema + GA4 purchase event + SEO docs/skills
+
+**Đang làm:** Tiếp scope 4 cái xanh sau session 3 + tạo bộ docs/skills cho SEO. Hai cái xanh code-only đã hoàn thành (FAQ + GA4 purchase). Hai cái còn lại (OG 1200×630 custom + per-zodiac image) defer vì cần design assets. Sau đó user yêu cầu document hoá SEO workflow thành reference + skills.
+
+**Đến đâu rồi:**
+- ✅ FAQ schema 5 Q&A/trang tiếng Việt cho 4 service pages — Google sẽ show FAQ rich snippet trong SERP.
+- ✅ GA4 purchase event — helper `track-purchase.ts` + wire 4 FE clients (`sendGAEvent('purchase')` với transaction_id, value VND, items[]).
+- ✅ `SEO-CHECKLIST.md` root — tổng quan SEO state (10 mục đã làm) + TODO (3 layer: manual/design/content) + 3 playbook + anti-patterns + monitoring schedule.
+- ✅ 3 SEO skills: `seo-add-page` (add new route full setup), `seo-change-price` (sync 5 layer khi đổi giá), `seo-audit` (health check 8 mục + 1 quick command tổng hợp).
+- ✅ `SEO-REQUEST-INDEXING.md` root — chi tiết step-by-step GSC + Bing Webmaster Request indexing, quota bảng, 4 lỗi thường gặp.
+- ⏳ User manual chưa làm: Bing Webmaster Live URL test + Request indexing trang chủ, Test FAQ rich result sau deploy, Delete Supabase `tu_vi_key`, Disable Google `****6NAd`.
+
+**Files đã sửa (code session 4):**
+- `apps/web/src/app/xem-tu-vi/page.tsx` — thêm `FAQS` const + `<JsonLd data={faqSchema(FAQS)} />`. 5 Q&A: Tử Vi là gì, info cần, độ chính xác AI, phí 40k, truy cập lại.
+- `apps/web/src/app/xem-tarot/page.tsx` — tương tự. 5 Q&A: RWS là gì, độ chính xác, chuẩn bị, randomness, phí 5k.
+- `apps/web/src/app/tu-tru-bat-tu/page.tsx` — tương tự. 5 Q&A: BaZi là gì, vs Tử Vi, info cần, dụng/kỵ thần, tuổi thọ.
+- `apps/web/src/app/ngay-tot/page.tsx` — tương tự. 5 Q&A: hoàng/hắc đạo, chọn ngày cưới, giờ hoàng đạo, trực ngày, thuật toán Hồ Ngọc Đức.
+- `apps/web/src/lib/track-purchase.ts` (MỚI) — helper `trackPurchase(service, transactionId)` wrap `sendGAEvent('event', 'purchase', {...})` từ `@next/third-parties/google`. Type `PurchaseService = 'tu-vi' | 'tu-tru' | 'tarot' | 'horoscope'` với map `PRICE_VND` + `ITEM_NAME`.
+- `apps/web/src/components/tu-vi/TuviClient.tsx` — import + call `trackPurchase('tu-vi', data.chartId)` sau submit success.
+- `apps/web/src/components/tu-tru/TuTruClient.tsx` — tương tự `trackPurchase('tu-tru', body.chartId)`.
+- `apps/web/src/app/xem-tarot/TarotClient.tsx` — `trackPurchase('tarot', body.chartId)`.
+- `apps/web/src/app/hoang-dao/luan-giai/LuanGiaiClient.tsx` — `trackPurchase('horoscope', body.id)` (horoscope endpoint trả `id` thay vì `chartId`).
+
+**Files docs/skills (MỚI):**
+- `SEO-CHECKLIST.md` (root) — 7 section: TL;DR, ✅ Đã làm (10 mục), ⏳ Chưa làm phân 4 loại, Playbook thêm page, Playbook content file, Playbook đổi giá, Test commands + Anti-patterns + Monitoring.
+- `SEO-REQUEST-INDEXING.md` (root) — GSC 7 bước, Bing Webmaster process, quota bảng, 4 lỗi + fix, workflow chuẩn 6 bước.
+- `.claude/skills/seo-add-page/SKILL.md` — 5 bước: tạo page.tsx (template service + article), update sitemap, update robots, wire GA4 nếu charge, submit IndexNow + GSC. Anti-patterns.
+- `.claude/skills/seo-change-price/SKILL.md` — 5 layer sync: DB → cache 60s → Service schema (hard-code) → GA4 PRICE_VND → UI auto từ server response. Anti-patterns.
+- `.claude/skills/seo-audit/SKILL.md` — 8 mục audit + 1 quick command bash tổng hợp + warning thường gặp.
+
+**Đáng nhớ về kỹ thuật:**
+
+1. **Bug `*/` trong JSDoc**: Comment trong `track-purchase.ts` ban đầu có `/api/*/submit` — TS parser thấy `*/` đóng JSDoc sớm → next line ra code → error TS1434/TS1128. Fix: dùng `// ` single-line comment thay `/** ... */`. Lesson: tránh `*/` literal trong JSDoc block, hoặc dùng single-line comments cho file có path string.
+
+2. **GA4 purchase event design**: Server `chargeReading` trả `txId` + `amountCharged` nhưng FE dùng `chartId` (per-submission UUID) làm `transaction_id` thay vì txId. Lý do: GA4 dedup theo transaction_id, dùng chartId thì user reload page không double-count. Price hard-code FE thay vì query server — trade-off để FE không hit DB mỗi submit.
+
+3. **Service schema price hard-code**: Schema.org `Offer.price` là string cố định, không thể dynamic per-request. Hệ quả: nếu admin đổi giá runtime qua DB, schema lag tới khi redeploy code. Đã document trade-off này trong skill `seo-change-price`.
+
+4. **FAQ schema content discipline**: Google penalty nếu FAQ schema có content KHÁC visible page. Nếu thêm FAQ ở `<JsonLd>` mà UI không render FAQ block → có thể bị Google manual action. Plan tương lai: render FAQ block ở client component để khớp schema, hoặc accept risk hiện tại (Google chưa enforce strict cho site mới).
+
+**Bugs phát sinh:** Không (chỉ 1 typo `*/` đã fix ngay).
+
+**Blocker:** Không.
+
+**Việc tiếp theo:**
+1. **Commit 5 file docs/skills + push:**
+   - `SEO-CHECKLIST.md`, `SEO-REQUEST-INDEXING.md`
+   - `.claude/skills/seo-{add-page,change-price,audit}/SKILL.md`
+   - Push trigger CF Workers Builds.
+2. **Cleanup secret cũ** (vẫn pending từ session 2-3): Supabase Delete `tu_vi_key`, Google Disable `****6NAd`.
+3. **User manual tests post-deploy:**
+   - Bing Webmaster: Live URL test trang chủ HTTPS + Request indexing.
+   - Google Rich Result Test `/xem-tu-vi` để verify Service + FAQ + Breadcrumb (4 items expected).
+   - GA4 Realtime: submit 1 lá số → check `purchase` event với value đúng.
+4. **OG image custom 1200×630** (ratio 1.91:1 lý tưởng Facebook) — task design, defer.
+5. **Per-zodiac image** cho 12 Article schema — task design, defer.
+6. **Render FAQ block visible UI** ở 4 service page để match schema (Google penalty nếu schema vs UI mismatch lâu dài). Component `<FaqAccordion>` mới + import vào client component.
+
+---
+
 ### 2026-05-19 (session 3) — IndexNow + Rich Result + OG image fix
 
 **Đang làm:** Tiếp scope SEO sau session 2 (GA4 + rotate secrets). 4 cái vàng còn lại: IndexNow submit, Bing Webmaster, Rich Result Test, OG Facebook Debugger. Trong quá trình phát hiện 2 bug + 1 incident push protection.
