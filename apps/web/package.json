@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build-blog": "node scripts/build-blog-data.mjs",
+    "predev": "node scripts/build-blog-data.mjs",
     "dev": "next dev -p 3100",
+    "prebuild": "node scripts/build-blog-data.mjs",
     "build": "next build",
     "start": "next start -p 3100",
     "lint": "next lint",
+    "precf:build": "node scripts/build-blog-data.mjs",
     "cf:build": "opennextjs-cloudflare build",
     "preview": "pnpm cf:build && wrangler dev",
     "cf:deploy": "pnpm cf:build && wrangler deploy"
