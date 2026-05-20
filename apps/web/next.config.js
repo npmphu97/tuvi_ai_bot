@@ -27,6 +27,17 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  // Force Next include 15 .md blog posts vào file tracing output cho các route
+  // dùng getAllPosts()/getPostBySlug(). Không có dòng này, Next chỉ trace import,
+  // không trace dynamic fs.readdirSync → CF Workers runtime không thấy .md → empty.
+  outputFileTracingIncludes: {
+    '/sitemap.xml': ['./src/content/blog/**/*.md'],
+    '/blog': ['./src/content/blog/**/*.md'],
+    '/blog/**': ['./src/content/blog/**/*.md'],
+    '/': ['./src/content/blog/**/*.md'],
+  },
+  // Monorepo: trỏ Next tracing root về repo root để bao luôn package symlinks.
+  outputFileTracingRoot: require('path').resolve(__dirname, '../..'),
   experimental: {
     serverActions: {
       bodySizeLimit: '2mb',
