@@ -9,26 +9,26 @@ export const metadata = {
 
 export default function DataDeletion() {
   return (
-    <article className="max-w-3xl mx-auto px-6 py-12 text-[#0f0a08] leading-[1.85]">
+    <article className="max-w-3xl mx-auto px-6 py-12 leading-[1.85]">
       <Link
         href="/"
-        className="text-[11px] tracking-[0.3em] text-[#4a6c7a] hover:text-[#5a3a1a] uppercase"
+        className="text-[11px] tracking-[0.3em] text-gold/70 hover:text-gold uppercase transition"
       >
         ← Trang chủ
       </Link>
       <h1
-        className="mt-4 text-4xl md:text-5xl font-serif italic text-[#0f0a08]"
+        className="mt-4 text-4xl md:text-5xl font-serif italic text-parchment"
         style={{ fontFamily: SERIF_FONT }}
       >
         Xóa dữ liệu cá nhân
       </h1>
-      <p className="mt-2 text-[13px] text-[#4a3a30]">
+      <p className="mt-2 text-[13px] text-parchment/50">
         Hướng dẫn yêu cầu xóa tài khoản và toàn bộ dữ liệu liên quan.
       </p>
 
-      <section className="mt-8 space-y-5 text-[15px]">
+      <section className="mt-8 space-y-5 text-[15px] text-parchment/80">
         <h2
-          className="text-2xl font-semibold text-[#5a3a1a] mt-8"
+          className="text-2xl font-semibold text-gold mt-8"
           style={{ fontFamily: SERIF_FONT }}
         >
           Cách tự xóa tài khoản (đang phát triển)
@@ -39,20 +39,20 @@ export default function DataDeletion() {
         </p>
 
         <h2
-          className="text-2xl font-semibold text-[#5a3a1a] mt-8"
+          className="text-2xl font-semibold text-gold mt-8"
           style={{ fontFamily: SERIF_FONT }}
         >
           Yêu cầu xóa qua email
         </h2>
-        <p>Gửi email tới <strong>tuanmanh97x@gmail.com</strong> với nội dung:</p>
+        <p>Gửi email tới <strong className="text-parchment">tuanmanh97x@gmail.com</strong> với nội dung:</p>
         <ul className="list-disc pl-6 space-y-1.5">
-          <li>Tiêu đề: <strong>Yêu cầu xóa dữ liệu cá nhân</strong></li>
+          <li>Tiêu đề: <strong className="text-parchment">Yêu cầu xóa dữ liệu cá nhân</strong></li>
           <li>Email đăng ký tài khoản</li>
           <li>Lý do (tuỳ chọn)</li>
         </ul>
         <p>
           Chúng tôi sẽ xác nhận và xóa toàn bộ dữ liệu trong vòng{' '}
-          <strong>7 ngày làm việc</strong>:
+          <strong className="text-parchment">7 ngày làm việc</strong>:
         </p>
         <ul className="list-disc pl-6 space-y-1.5">
           <li>Tài khoản đăng nhập (Google / Email link)</li>
@@ -62,7 +62,7 @@ export default function DataDeletion() {
         </ul>
 
         <h2
-          className="text-2xl font-semibold text-[#5a3a1a] mt-8"
+          className="text-2xl font-semibold text-gold mt-8"
           style={{ fontFamily: SERIF_FONT }}
         >
           Dữ liệu giữ lại theo nghĩa vụ pháp lý
@@ -73,7 +73,7 @@ export default function DataDeletion() {
         </p>
 
         <h2
-          className="text-2xl font-semibold text-[#5a3a1a] mt-8"
+          className="text-2xl font-semibold text-gold mt-8"
           style={{ fontFamily: SERIF_FONT }}
         >
           Yêu cầu xóa quyền truy cập từ Google
@@ -88,7 +88,7 @@ export default function DataDeletion() {
               href="https://myaccount.google.com/permissions"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#4a6c7a] underline"
+              className="text-gold/80 underline hover:text-gold transition"
             >
               myaccount.google.com/permissions
             </a>{' '}

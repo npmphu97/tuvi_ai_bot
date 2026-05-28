@@ -98,7 +98,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
-      <body className="min-h-screen text-[#0f0a08]">
+      <body className="cosmic-bg min-h-screen text-brand-cream">
         <AuthProvider session={session}>
           <BodyBackground />
           <Header />

@@ -153,16 +153,16 @@ export default function LuanGiaiClient() {
 
   if (!input) {
     return (
-      <div className="max-w-2xl mx-auto px-6 py-20 text-center text-[#0f0a08]">
-        <h1 className="text-2xl font-serif" style={{ fontFamily: SERIF_FONT }}>
+      <div className="max-w-2xl mx-auto px-6 py-20 text-center text-[#f4ecd6]">
+        <h1 className="text-2xl font-serif text-[#f4ecd6]" style={{ fontFamily: SERIF_FONT }}>
           Tham số không hợp lệ
         </h1>
-        <p className="mt-3 text-[14px] text-[#4a3a30]">
+        <p className="mt-3 text-[14px] text-[#b8a47c]">
           {error ?? 'Vui lòng quay lại trang Hoàng Đạo để điền form.'}
         </p>
         <Link
           href="/hoang-dao"
-          className="inline-block mt-6 px-6 py-2.5 rounded-full bg-[#5a3a1a] text-[#fbf3e2] hover:bg-[#4a6c7a] text-[13px] font-semibold"
+          className="inline-block mt-6 px-6 py-2.5 rounded-full bg-gold-metal text-[#05060a] hover:brightness-110 text-[13px] font-semibold transition-all"
         >
           ← Về trang Hoàng Đạo
         </Link>
@@ -173,41 +173,41 @@ export default function LuanGiaiClient() {
   const tone = ELEMENT_TONE[input.sign.el] ?? ELEMENT_TONE.Đất;
 
   return (
-    <div className="text-[#0f0a08]">
+    <div className="text-[#f4ecd6]">
       {/* Breadcrumb */}
       <section className="px-6 pt-10">
-        <div className="max-w-3xl mx-auto text-[12px] text-[#4a3a30]">
-          <Link href="/" className="hover:text-[#5a3a1a] transition">
+        <div className="max-w-3xl mx-auto text-[12px] text-[#b8a47c]">
+          <Link href="/" className="hover:text-[#c89146] transition">
             Trang chủ
           </Link>
           <span className="mx-2 text-[#c89146]">›</span>
-          <Link href="/hoang-dao" className="hover:text-[#5a3a1a] transition">
+          <Link href="/hoang-dao" className="hover:text-[#c89146] transition">
             12 Cung Hoàng Đạo
           </Link>
           <span className="mx-2 text-[#c89146]">›</span>
-          <span className="text-[#5a3a1a] font-medium">Luận giải cá nhân</span>
+          <span className="text-[#c89146] font-medium">Luận giải cá nhân</span>
         </div>
       </section>
 
       <section className="px-6 pt-8 pb-20">
         <div className="max-w-3xl mx-auto space-y-6">
           {/* Sign header */}
-          <div className="rounded-3xl border border-[#c89146]/55 bg-[#fbf3e2]/95 backdrop-blur-sm p-6 md:p-8 text-center shadow-[0_24px_60px_-30px_rgba(90,58,26,0.35)]">
+          <div className="rounded-3xl border border-[#c89146]/30 bg-[#14121a] backdrop-blur-sm p-6 md:p-8 text-center shadow-[0_24px_60px_-30px_rgba(200,145,70,0.2)]">
             <div className="text-[11px] tracking-[0.4em] uppercase text-[#4a6c7a] font-semibold">
               Cung của bạn
             </div>
             <div
-              className={`mx-auto mt-3 w-20 h-20 rounded-2xl bg-gradient-to-br ${tone.ring} border border-[#c89146]/60 flex items-center justify-center text-[#fbf3e2] text-4xl shadow-inner`}
+              className={`mx-auto mt-3 w-20 h-20 rounded-2xl bg-gradient-to-br ${tone.ring} border border-[#c89146]/60 flex items-center justify-center text-[#f4ecd6] text-4xl shadow-inner`}
             >
               {input.sign.sym}
             </div>
             <h1
-              className="mt-4 text-4xl md:text-5xl font-serif italic text-[#0f0a08]"
+              className="mt-4 text-4xl md:text-5xl font-serif italic text-[#f4ecd6]"
               style={{ fontFamily: SERIF_FONT }}
             >
               {input.sign.name}
             </h1>
-            <div className="mt-1 text-[12px] tracking-[0.3em] uppercase text-[#4a3a30]">
+            <div className="mt-1 text-[12px] tracking-[0.3em] uppercase text-[#b8a47c]">
               {input.sign.en} · {input.sign.range}
             </div>
             <div className="mt-4 inline-flex flex-wrap items-center justify-center gap-2">
@@ -230,19 +230,19 @@ export default function LuanGiaiClient() {
 
           {/* States */}
           {loading && (
-            <div className="rounded-2xl border border-[#c89146]/45 bg-[#fbf3e2]/85 p-6 md:p-8 text-center text-[#4a3a30]">
+            <div className="rounded-2xl border border-[#c89146]/30 bg-[#14121a] p-6 md:p-8 text-center text-[#b8a47c]">
               <div className="inline-flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-[#c89146] animate-pulse" />
                 Hệ thống đang luận giải cá nhân hóa theo bối cảnh của bạn…
               </div>
-              <div className="mt-1 text-[12px] text-[#7a6a52]">
+              <div className="mt-1 text-[12px] text-[#7a6a5f]">
                 Mất khoảng 15–30 giây.
               </div>
             </div>
           )}
 
           {insufficient && (
-            <div className="rounded-2xl border border-[#c89146]/55 bg-[#f5e3c0]/50 p-5 text-[#5a3a1a] text-[13.5px] space-y-2">
+            <div className="rounded-2xl border border-[#c89146]/30 bg-[#14121a] p-5 text-[#f4ecd6] text-[13.5px] space-y-2">
               <div>
                 ⚠ <strong>Số dư không đủ.</strong> Cần{' '}
                 <strong>{formatVnd(insufficient.required)}</strong> cho 1 lần luận giải,
@@ -250,7 +250,7 @@ export default function LuanGiaiClient() {
               </div>
               <Link
                 href="/vi-cua-toi"
-                className="inline-block px-4 py-1.5 rounded-full bg-[#5a3a1a] text-[#fbf3e2] text-[12px] font-semibold hover:bg-[#4a6c7a]"
+                className="inline-block px-4 py-1.5 rounded-full bg-gold-metal text-[#05060a] text-[12px] font-semibold hover:brightness-110 transition-all"
               >
                 Nạp tiền vào ví →
               </Link>
@@ -264,7 +264,7 @@ export default function LuanGiaiClient() {
           )}
 
           {reading && (
-            <article className="rounded-2xl border border-[#c89146]/55 bg-[#fbf3e2]/95 p-6 md:p-10 shadow-[0_20px_60px_-30px_rgba(90,58,26,0.3)] space-y-8">
+            <article className="rounded-2xl border border-[#c89146]/30 bg-[#14121a] p-6 md:p-10 shadow-[0_20px_60px_-30px_rgba(200,145,70,0.2)] space-y-8">
               <PersonalizedView data={reading} statusLabel={STATUS_LABEL[input.status]} goalLabel={GOAL_LABEL[input.goal]} />
             </article>
           )}
@@ -293,7 +293,7 @@ function PersonalizedView({
   goalLabel: string;
 }) {
   return (
-    <div className="space-y-8 text-[#0f0a08]">
+    <div className="space-y-8 text-[#f4ecd6]">
       <Section title="1. Tính cách cốt lõi">
         <BulletGroup label="Điểm mạnh nổi bật" items={data.personality.strengths} tone="strong" />
         <BulletGroup label="Điểm yếu cần cải thiện" items={data.personality.weaknesses} tone="weak" />
@@ -323,7 +323,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <section className="space-y-4">
       <h2
-        className="text-[20px] md:text-[22px] font-serif italic text-[#5a3a1a] border-b border-[#c89146]/40 pb-2"
+        className="text-[20px] md:text-[22px] font-serif italic text-[#c89146] border-b border-[#c89146]/40 pb-2"
         style={{ fontFamily: SERIF_FONT }}
       >
         {title}
@@ -340,7 +340,7 @@ function Paragraph({ label, text }: { label: string; text: string }) {
       <div className="text-[11px] tracking-[0.25em] uppercase font-bold text-[#4a6c7a] mb-1.5">
         {label}
       </div>
-      <p className="text-[14.5px] leading-[1.75] text-[#2a1c14]">{text}</p>
+      <p className="text-[14.5px] leading-[1.75] text-[#f4ecd6]">{text}</p>
     </div>
   );
 }
@@ -363,7 +363,7 @@ function BulletGroup({
       </div>
       <ul className="space-y-1.5">
         {items.map((it, i) => (
-          <li key={i} className="flex gap-2.5 text-[14.5px] leading-[1.7] text-[#2a1c14]">
+          <li key={i} className="flex gap-2.5 text-[14.5px] leading-[1.7] text-[#f4ecd6]">
             <span className="font-bold mt-[2px]" style={{ color: dotColor }}>•</span>
             <span>{it}</span>
           </li>

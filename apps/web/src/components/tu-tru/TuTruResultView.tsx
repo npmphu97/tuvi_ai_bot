@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { BatTuChart, PillarInfo, WuxingPhase } from '@/lib/bat-tu';
 import { RenderTuviContent } from '@/lib/markdown';
 import { toast } from '@/components/ui/toast';
+import { MysticCard } from '@/components/ui/MysticCard';
 
 const SERIF_FONT = "'Cormorant Garamond',serif";
 
@@ -97,40 +98,21 @@ export function DayMasterPanel({ chart, name }: { chart: BatTuChart; name: strin
   const phase = chart.dayMaster.phase;
   const color = PHASE_COLOR[phase];
   return (
-    <section className="rounded-2xl border border-[#c89146]/55 bg-[#fbf3e2]/95 p-6 md:p-8 text-center">
-      <div className="text-[11px] tracking-[0.4em] uppercase text-[#4a6c7a] font-semibold">
-        日 主 · Nhật chủ
-      </div>
-      <h3
-        className="mt-2 text-3xl md:text-4xl font-serif text-[#0f0a08]"
-        style={{ fontFamily: SERIF_FONT }}
-      >
-        {name} — <em className="text-[#5a3a1a]">{chart.dayMaster.can} {phase}</em>
+    <div className="text-center">
+      <div className="text-[11px] tracking-[0.4em] uppercase text-gold/70 font-semibold">日 主 · Nhật chủ</div>
+      <h3 className="mt-2 text-3xl md:text-4xl font-serif text-gold-light" style={{ fontFamily: SERIF_FONT }}>
+        {name} — <em className="text-gold">{chart.dayMaster.can} {phase}</em>
       </h3>
-      <p className="mt-2 text-[13px] text-[#4a3a30]">
+      <p className="mt-2 text-[13px] text-gold-light/70">
         Can ngày <strong>{chart.dayMaster.can}</strong> · Ngũ hành{' '}
-        <span className={`font-semibold ${color.text}`}>{phase}</span> ·{' '}
-        {chart.dayMaster.polarity}
+        <span className={`font-semibold ${color.text}`}>{phase}</span> · {chart.dayMaster.polarity}
       </p>
-      <div className="mt-4 inline-flex items-center gap-4 px-5 py-2 rounded-full border border-[#c89146]/55 bg-[#fbf3e2] text-[12px] text-[#4a3a30]">
-        <span>
-          Dương:{' '}
-          <strong className="text-[#0f0a08]">
-            {chart.birth.solar.day}/{chart.birth.solar.month}/{chart.birth.solar.year}{' '}
-            {String(chart.birth.solar.hour).padStart(2, '0')}:
-            {String(chart.birth.solar.minute).padStart(2, '0')}
-          </strong>
-        </span>
-        <span className="w-px h-3.5 bg-[#c89146]/40" />
-        <span>
-          Âm:{' '}
-          <strong className="text-[#0f0a08]">
-            {chart.birth.lunar.day}/{chart.birth.lunar.month}
-            {chart.birth.lunar.leap ? ' (nhuận)' : ''}/{chart.birth.lunar.year}
-          </strong>
-        </span>
+      <div className="mt-4 inline-flex items-center gap-4 px-5 py-2 rounded-full border border-gold/35 bg-cosmic-raised text-[12px] text-gold-light/70">
+        <span>Dương: <strong className="text-gold-light">{chart.birth.solar.day}/{chart.birth.solar.month}/{chart.birth.solar.year} {String(chart.birth.solar.hour).padStart(2,'0')}:{String(chart.birth.solar.minute).padStart(2,'0')}</strong></span>
+        <span className="w-px h-3.5 bg-gold/30" />
+        <span>Âm: <strong className="text-gold-light">{chart.birth.lunar.day}/{chart.birth.lunar.month}{chart.birth.lunar.leap ? ' (nhuận)' : ''}/{chart.birth.lunar.year}</strong></span>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -189,18 +171,11 @@ export default function TuTruResultView({
   return (
     <div className="space-y-6 md:space-y-8">
       <div className="text-center">
-        <div className="text-[11px] tracking-[0.4em] uppercase text-[#4a6c7a] font-semibold">
-          四 柱 · Tứ Trụ
-        </div>
-        <h2
-          className="mt-2 text-4xl font-serif italic text-[#0f0a08]"
-          style={{ fontFamily: SERIF_FONT }}
-        >
-          Bát Tự {name}
-        </h2>
+        <div className="text-[11px] tracking-[0.4em] uppercase text-gold/70 font-semibold">四 柱 · Tứ Trụ</div>
+        <h2 className="mt-2 text-4xl font-serif italic text-gold-light" style={{ fontFamily: SERIF_FONT }}>Bát Tự {name}</h2>
       </div>
-      <DayMasterPanel chart={chart} name={name} />
-      <PillarsGrid chart={chart} />
+      <MysticCard tone="east" hover={false}><div className="p-6 md:p-8"><DayMasterPanel chart={chart} name={name} /></div></MysticCard>
+      <MysticCard tone="neutral" hover={false}><div className="p-5 md:p-6"><PillarsGrid chart={chart} /></div></MysticCard>
 
       {aiLoading && (
         <div className="rounded-2xl border border-[#c89146]/45 bg-[#fbf3e2]/85 p-6 text-center text-[#4a3a30]">
@@ -238,9 +213,11 @@ export default function TuTruResultView({
       )}
 
       {analysis && (
-        <article className="rounded-2xl border border-[#c89146]/55 bg-[#fbf3e2]/95 p-6 md:p-10 shadow-[0_20px_60px_-30px_rgba(90,58,26,0.3)]">
-          <RenderTuviContent content={analysis} />
-        </article>
+        <MysticCard tone="east" hover={false}>
+          <article className="p-6 md:p-10">
+            <RenderTuviContent content={analysis} />
+          </article>
+        </MysticCard>
       )}
     </div>
   );

@@ -19,12 +19,12 @@ const SERIF = "'Cormorant Garamond',serif";
 
 const COLORS = {
   gold: '#c89146',
-  goldDark: '#5a3a1a',
-  cream: '#f5e3c0',
+  goldDark: '#8a5a1f',
+  cream: '#e9d4b6',
   mountain: '#4a6c7a',
   mountainLight: '#8aaab8',
-  ink: '#0f0a08',
-  inkMute: '#4a3a30',
+  ink: '#0b0d14',
+  inkMute: '#b8a47c',
   border: '#c89146',
 };
 
@@ -178,16 +178,16 @@ function ChartCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-3xl border border-[#4a6c7a]/35 bg-[#fbf3e2]/95 p-5 md:p-6 shadow-[0_18px_50px_-30px_rgba(90,58,26,0.25)]">
+    <div className="rounded-3xl border border-gold/25 bg-cosmic-panel p-5 md:p-6 shadow-cosmicLift">
       <header className="mb-4">
         <h2
-          className="text-xl md:text-2xl font-serif italic text-[#5a3a1a]"
+          className="text-xl md:text-2xl font-serif italic text-gold"
           style={{ fontFamily: SERIF }}
         >
           {title}
         </h2>
         {subtitle && (
-          <p className="text-[12.5px] text-[#4a3a30] mt-0.5">{subtitle}</p>
+          <p className="text-[12.5px] text-parchment/50 mt-0.5">{subtitle}</p>
         )}
       </header>
       {children}
@@ -216,11 +216,11 @@ function VndTooltip({
   const total = Number(item.value ?? 0);
   const count = countKey ? Number(data[countKey] ?? 0) : null;
   return (
-    <div className="rounded-xl border border-[#c89146]/55 bg-[#fbf3e2] px-3 py-2 shadow-lg text-[12.5px]">
-      <div className="text-[11px] tracking-[0.2em] uppercase font-bold text-[#4a6c7a]">{label}</div>
-      <div className="mt-0.5 font-bold text-[#5a3a1a] tabular-nums">{formatVnd(total)}</div>
+    <div className="rounded-xl border border-gold/40 bg-cosmic-panel px-3 py-2 shadow-lg text-[12.5px]">
+      <div className="text-[11px] tracking-[0.2em] uppercase font-bold text-gold/70">{label}</div>
+      <div className="mt-0.5 font-bold text-gold tabular-nums">{formatVnd(total)}</div>
       {count != null && (
-        <div className="text-[11px] text-[#4a3a30] mt-0.5 tabular-nums">
+        <div className="text-[11px] text-parchment/50 mt-0.5 tabular-nums">
           {count}{suffix ?? ''}
         </div>
       )}
@@ -232,7 +232,7 @@ function CountTooltip({ active, payload, label }: TooltipContentProps) {
   if (!active || !payload || payload.length === 0) return null;
   const count = Number(payload[0].value ?? 0);
   return (
-    <div className="rounded-xl border border-[#4a6c7a]/55 bg-[#fbf3e2] px-3 py-2 shadow-lg text-[12.5px]">
+    <div className="rounded-xl border border-[#4a6c7a]/40 bg-cosmic-panel px-3 py-2 shadow-lg text-[12.5px]">
       <div className="text-[11px] tracking-[0.2em] uppercase font-bold text-[#4a6c7a]">{label}</div>
       <div className="mt-0.5 font-bold text-[#4a6c7a] tabular-nums">{count} user mới</div>
     </div>

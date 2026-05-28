@@ -10,8 +10,12 @@ import type {
 } from '@tuvi/core';
 import DeepReadings, { BasicInfo } from './DeepReadings';
 import VietnameseCenter from './VietnameseCenter';
+import { MysticCard } from '@/components/ui/MysticCard';
+import { GoldText } from '@/components/ui/GoldText';
+import { CosmicBg } from '@/components/CosmicBg';
 import { toast } from '@/components/ui/toast';
 import '@/styles/iztrolabe-overrides.css';
+import '@/styles/iztrolabe-dark.css';
 
 const Iztrolabe = dynamic(
   () => import('react-iztro').then((m) => ({ default: m.Iztrolabe })),
@@ -146,28 +150,17 @@ export default function ChartDetailClient({
   };
 
   return (
-    <div className="relative text-[#0f0a08]">
+    <div className="relative min-h-screen">
+      <CosmicBg intensity="low" />
       <section className="pt-12 pb-4 px-6 text-center">
-        <Link
-          href="/lich-su"
-          className="inline-block text-[11px] tracking-[0.3em] text-[#4a6c7a] hover:text-[#5a3a1a] uppercase"
-        >
-          ← Lịch sử của tôi
-        </Link>
-        <h1
-          className="mt-3 font-serif text-[#0f0a08] leading-[0.95] text-[clamp(40px,6vw,80px)]"
-          style={{ fontFamily: SERIF_FONT }}
-        >
-          Lá số <em className="text-[#4a6c7a]">{chart.info.name}</em>
-        </h1>
-        <p className="mt-3 text-[13px] text-[#4a3a30]">
+        <Link href="/lich-su" className="inline-block text-[11px] tracking-[0.3em] text-gold/70 hover:text-gold uppercase">← Lịch sử của tôi</Link>
+        <GoldText as="h1" className="mt-3 font-serif leading-[0.95] text-[clamp(40px,6vw,80px)] block">
+          Lá số {chart.info.name}
+        </GoldText>
+        <p className="mt-3 text-[13px] text-gold-light/60">
           Lập ngày{' '}
           {new Date(createdAt).toLocaleString('vi-VN', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
+            day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit',
           })}
         </p>
         <div className="mt-5 flex items-center justify-center gap-3 flex-wrap">
@@ -176,61 +169,48 @@ export default function ChartDetailClient({
             onClick={downloadPdf}
             disabled={pdfBusy || !analysis}
             title={!analysis ? 'Đang chờ luận giải xong mới tải được PDF' : 'Tải bản PDF'}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#5a3a1a] via-[#7a4a1f] to-[#c89146] text-[#fbf3e2] font-semibold text-[13.5px] hover:from-[#4a6c7a] hover:via-[#8a5520] hover:to-[#d4a05a] transition shadow-[0_10px_30px_-10px_rgba(90,58,26,0.6)] disabled:opacity-60 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gold-metal text-cosmic-DEFAULT font-semibold text-[13.5px] hover:brightness-110 transition shadow-goldGlow disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <span>📄</span>
             <span>{pdfBusy ? 'Đang tạo PDF…' : 'Tải PDF'}</span>
           </button>
-          <Link
-            href="/xem-tu-vi"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#4a6c7a]/45 text-[#4a3a30] font-semibold text-[13.5px] hover:bg-[#fbf3e2]/70 transition"
-          >
+          <Link href="/xem-tu-vi" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gold/40 text-gold-light font-semibold text-[13.5px] hover:border-gold transition">
             ↻ Lập lá số khác
           </Link>
         </div>
         {pdfError && (
-          <div className="mt-3 inline-block rounded-xl border border-[#c8361d]/40 bg-[#c8361d]/10 px-4 py-2 text-[#c8361d] text-[13px]">
-            ⚠ {pdfError}
-          </div>
+          <div className="mt-3 inline-block rounded-xl border border-[#c8361d]/40 bg-[#c8361d]/10 px-4 py-2 text-[#c8361d] text-[13px]">⚠ {pdfError}</div>
         )}
       </section>
 
-      <section className="mt-6 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-6">
-            <div className="text-[11px] tracking-[0.4em] text-[#4a6c7a] uppercase">
-              紫 微 斗 數 · Tử Vi Đẩu Số
-            </div>
-          </div>
-          <div className="mb-6">
-            <BasicInfo chart={chart} form={form} />
+      <section className="mt-6 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto space-y-6">
+          <div className="text-center">
+            <div className="text-[11px] tracking-[0.4em] text-gold/70 uppercase">紫 微 斗 數 · Tử Vi Đẩu Số</div>
           </div>
 
-          <div className="rounded-2xl border border-[#4a6c7a]/55 bg-[#fbf3e2]/94 p-3 md:p-5 shadow-[0_30px_80px_-30px_rgba(90,58,26,0.3)] overflow-x-auto">
-            <div className="min-w-[860px] relative">
-              <Iztrolabe
-                birthday={iztroSnap.birthday}
-                birthTime={iztroSnap.birthTime}
-                gender={iztroSnap.gender}
-                birthdayType={iztroSnap.birthdayType}
-                lang="vi-VN"
-                width="100%"
-                centerPalaceAlign
-              />
-              <VietnameseCenter chart={chart} />
-            </div>
-          </div>
+          <MysticCard tone="east" hover={false}>
+            <div className="p-6 md:p-8"><BasicInfo chart={chart} form={form} /></div>
+          </MysticCard>
 
-          <DeepReadings
-            chart={chart}
-            form={form}
-            deep={deep}
-            deepLoading={deepLoading}
-            deepError={deepError}
-            analysis={analysis}
-            analysisLoading={aiLoading}
-            analysisError={aiError}
-          />
+          <MysticCard tone="neutral" hover={false}>
+            <div className="p-3 md:p-5 overflow-x-auto">
+              <div className="min-w-[860px] relative">
+                <Iztrolabe
+                  birthday={iztroSnap.birthday} birthTime={iztroSnap.birthTime}
+                  gender={iztroSnap.gender} birthdayType={iztroSnap.birthdayType}
+                  lang="vi-VN" width="100%" centerPalaceAlign
+                />
+                <VietnameseCenter chart={chart} />
+              </div>
+            </div>
+          </MysticCard>
+
+          <MysticCard tone="east" hover={false}>
+            <div className="p-1">
+              <DeepReadings chart={chart} form={form} deep={deep} deepLoading={deepLoading} deepError={deepError} analysis={analysis} analysisLoading={aiLoading} analysisError={aiError} />
+            </div>
+          </MysticCard>
         </div>
       </section>
     </div>

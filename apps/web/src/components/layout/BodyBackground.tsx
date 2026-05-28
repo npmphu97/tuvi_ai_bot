@@ -1,22 +1,9 @@
-import Image from "next/image";
-import bgMagnoliaBirds from "@/assets/bg-sumi-mountain.jpg";
+import { CosmicBg } from '@/components/CosmicBg';
 
+/**
+ * BodyBackground — delegates to CosmicBg for the full-viewport starfield.
+ * Replaces previous sumi-mountain static image background.
+ */
 export default function BodyBackground() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10"
-      style={{ backgroundColor: "#fbf3e2" }}
-    >
-      <Image
-        src={bgMagnoliaBirds}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        placeholder="blur"
-        className="object-cover object-center"
-      />
-    </div>
-  );
+  return <CosmicBg intensity="low" />;
 }

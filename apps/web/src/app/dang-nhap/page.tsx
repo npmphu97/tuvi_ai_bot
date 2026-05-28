@@ -23,21 +23,21 @@ export default async function LoginPage({
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="w-full max-w-md rounded-3xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/96 p-8 md:p-10 shadow-[0_30px_80px_-30px_rgba(90,58,26,0.3)]">
+      <div className="w-full max-w-md rounded-3xl border border-gold/30 bg-cosmic-panel p-8 md:p-10 shadow-[0_30px_80px_-30px_rgba(200,145,70,0.2)]">
         <div className="text-center mb-6">
           <Link
             href="/"
-            className="text-[11px] tracking-[0.3em] text-[#4a6c7a] hover:text-[#5a3a1a] uppercase"
+            className="text-[11px] tracking-[0.3em] text-gold/70 hover:text-gold uppercase transition"
           >
             ← Trang chủ
           </Link>
           <h1
-            className="mt-3 text-4xl font-serif text-[#0f0a08]"
+            className="mt-3 text-4xl font-serif text-parchment"
             style={{ fontFamily: SERIF_FONT }}
           >
-            Đăng <em className="text-[#4a6c7a]">nhập</em>
+            Đăng <em className="text-gold">nhập</em>
           </h1>
-          <p className="mt-2 text-[14px] text-[#4a3a30]">
+          <p className="mt-2 text-[14px] text-parchment/60">
             Lưu lại các lá số của bạn, nạp tiền và xem lịch sử
           </p>
         </div>
@@ -49,7 +49,7 @@ export default async function LoginPage({
           errorParam={searchParams.error}
         />
 
-        <p className="mt-6 text-center text-[12px] text-[#4a3a30] leading-relaxed">
+        <p className="mt-6 text-center text-[12px] text-parchment/40 leading-relaxed">
           Bằng việc đăng nhập, bạn đồng ý với điều khoản sử dụng và chính sách
           bảo mật của Vận Mệnh.
         </p>

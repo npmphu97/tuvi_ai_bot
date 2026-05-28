@@ -158,68 +158,106 @@ Báo **kết quả thực sự**, không expose internal state. Không phân bi�
 
 ---
 
-## Brand palette — single source of truth
+## Brand palette — Dark + Gold Mystic (2026-05-28 pivot)
 
-**TUYỆT ĐỐI KHÔNG dùng tím / indigo / violet / fuchsia / plum** trên toàn site. Trước có giai đoạn "sakura dusk twilight" mượn indigo `#1a0b2e/3d1d4a/2a1040` — đã loại bỏ 2026-05-12. Mọi section mới chỉ chọn màu từ palette dưới đây.
+**TUYỆT ĐỐI KHÔNG dùng tím / indigo / violet / fuchsia / plum** trên toàn site. Cũng KHÔNG dùng light gray / pure white làm background chính (chỉ allow trong parchment scoped sections). Pivot từ cream/đồng cổ warm-light → cosmic dark + gold metallic (2026-05-28, 45+ files migrated, phases 01-08).
 
-| Token             | Hex       | Vai trò                                    |
-| ----------------- | --------- | ------------------------------------------ |
-| Mực tàu           | `#0f0a08` | text chính, dark gradient stop sâu nhất    |
-| Mực xám           | `#4a3a30` | text phụ, subtitle, body trên cream        |
-| Đồng cổ           | `#5a3a1a` | accent ấm, heading nhấn, gradient stop ấm  |
-| Bronze trung gian | `#2a1c14` | dark gradient stop giữa mực tàu ↔ đồng cổ  |
-| Vàng đồng         | `#c89146` | border, chip, glow, CTA gradient           |
-| Vàng đồng light   | `#e9d4b6` | cream gradient stop, text trên dark bg     |
-| Cream             | `#fbf3e2` | bg trang chính, card bg                    |
-| Xanh núi          | `#4a6c7a` | accent mát, link, secondary heading nhấn   |
-| Chu sa            | `#c8361d` | cảnh báo, badge nguy hiểm, accent nóng     |
+**Cosmic dark + gold palette (source: `apps/web/src/styles/tokens.ts`):**
 
-Tailwind alias đã remap (xem `tailwind.config.ts`):
-- `brand-purple` → `#5a3a1a` (đồng cổ) — alias legacy, KHÔNG dùng cho code mới.
-- `brand-ink/purpleDark` → `#0f0a08`. `brand-gold` → `#c89146`. `brand-cream` → `#fbf3e2`. `brand-mountain` → `#4a6c7a`. `brand-vermilion` → `#c8361d`.
+| Token                    | Hex       | Vai trò                                          |
+| ------------------------ | --------- | ------------------------------------------------ |
+| Cosmic (body bg)         | `#05060a` | page background, darkest anchor                 |
+| Ink (panel bg)           | `#0b0d14` | panel / card surface, slightly raised            |
+| Raised (card bg)         | `#14121a` | card raised background, elevated element         |
+| Veil (hover/active)      | `#1c1a24` | hover state, active raised, interactive feedback |
+| Cream (text on dark)     | `#f4ecd6` | body text on dark bg, primary readability        |
+| Mute (subtitle/hint)     | `#b8a47c` | subtitle, hint text, secondary readability       |
+| Faint (disabled)         | `#7a6d4f` | disabled text, lowest contrast                   |
+| Gold (border/accent)     | `#c89146` | default border, accent highlight, interactive   |
+| Gold Light (gradient)    | `#e9d4b6` | light accent, cream gradient stop, text light    |
+| Gold Shine (bright)      | `#f4d57a` | bright highlight, sparkle, glow                 |
+| Gold Metal (classic)     | `#d4af37` | classic gold metallic, premium accent            |
+| Gold Deep (dark accent)  | `#8a5a1f` | dark gold, warm accent, gradient deep stop       |
+| Mountain (Eastern)       | `#4a6c7a` | Eastern accent, cool tone, secondary link        |
+| Vermilion (warning)      | `#c8361d` | warning, danger badge, hắc đạo accent           |
+| Jade (success)           | `#6b9080` | success, lành accent, positive feedback          |
+| Parchment (scroll only)  | `#e9d4b6` | scoped scroll frame bg only, NOT page bg         |
+| Parchment Deep (scroll)  | `#c9a96e` | scoped parchment border, NOT page element        |
+| Parchment Text (scroll)  | `#3a2410` | scoped parchment text only, NOT page text        |
 
-Mọi component nên dùng **hex trực tiếp** từ bảng trên (`bg-[#fbf3e2]`, `text-[#5a3a1a]`...) chứ không bịa màu mới hoặc dùng tailwind palette mặc định (purple-*, indigo-*, fuchsia-* — CẤM).
+**Tailwind alias (xem `tailwind.config.ts`):**
+- `brand-cosmic` → `#05060a` (page bg)
+- `brand-gold` → `#c89146` (default accent/border)
+- `brand-cream` → `#f4ecd6` (text on dark)
+- `brand-mountain` → `#4a6c7a` (Eastern accent)
+- `brand-vermilion` → `#c8361d` (warning/danger)
+- Legacy alias `brand-purple` removed (đã pivot từ `#5a3a1a`).
+
+**Design primitives (bắt buộc dùng):**
+- `GoldButton` — button với gold border + cream text + cosmic bg, hover → gold bg + cosmic text
+- `MysticCard` — card cosmic bg + veil border + raised element inside
+- `ScrollFrame` — parchment scoped bg (KHÔNG page), cream gradient stop
+- `GoldText` — heading text với gold accent inline (tên, icon)
+- `CosmicBg` — page/section background cosmic-gradient hoặc cosmic-solid
+- `ZodiacIcon` — 12 sao hoàng đạo icon gold metallic + cosmic shadow
+
+Mọi component dùng **hex trực tiếp** từ bảng trên (`bg-[#05060a]`, `text-[#f4ecd6]`, `border-[#c89146]`...) chứ không bịa màu mới hay dùng tailwind palette mặc định.
 
 ---
 
-## Design rhythm giữa các section
+## Design rhythm giữa các section (dark cosmic + gold focus)
 
 **2 section liền kề: kết nối tonal, khác biệt về medium.** Không lặp ảnh (mất rhythm, pha loãng concept), nhưng cũng KHÔNG bắt buộc tương phản tone — dễ gây cảm giác "2 trang khác nhau dán vào nhau, không liên quan".
 
 **Rule đúng khi render section mới / swap bg:**
-1. **Different medium** — section trước dùng ảnh? → section này dùng gradient/solid. Trước dùng gradient? → section này có thể dùng ảnh hoặc gradient khác rõ rệt (cream solid, dark sumi, washi).
-2. **Connected tonal palette** — chọn 2-3 màu từ Brand palette trên, tạo gradient warm (`#0f0a08 → #2a1c14 → #5a3a1a`) hoặc cream tonal (`#fbf3e2 → #e9d4b6`). Bg section sau phải nằm trong cùng family với section trước (cùng warm sumi, hoặc cùng cream washi).
+1. **Different medium** — section trước dùng ảnh? → section này dùng gradient/solid. Trước dùng gradient? → section này có thể dùng ảnh hoặc gradient khác rõ rệt (parchment scroll solid, cosmic dark, gold shimmer).
+2. **Connected tonal palette** — chọn 2-3 màu từ Brand palette dark+gold, tạo gradient cosmic (`#05060a → #0b0d14 → #14121a`) hoặc gold tonal (`#8a5a1f → #c89146 → #f4d57a`). Bg section sau phải nằm trong cùng family với section trước (cùng cosmic dark, hoặc cùng gold shimmer).
 3. **UI complementary với bg**:
-   - Bg dark (mực tàu/đồng cổ) → UI vàng đồng `#c89146` + cream `#e9d4b6/fbf3e2` + xanh núi `#4a6c7a` accent.
-   - Bg cream → UI đồng cổ `#5a3a1a` heading + vàng đồng `#c89146` border + xanh núi `#4a6c7a` link + chu sa `#c8361d` cảnh báo.
-4. **Section identity qua role**:
-   - Hero = ấn tượng → gradient sumi dark hoặc ảnh artistic, UI vàng đồng + cream.
-   - Công cụ/tra cứu = không gian suy ngẫm → cream solid hoặc washi gradient (`#f5ebd9 → #ead5b3`), UI đồng cổ + vàng đồng.
-   - CTA cuối = quyết liệt → solid mực tàu hoặc gradient đồng cổ→mực tàu.
+   - Bg cosmic dark (`#05060a`/`#0b0d14`/`#14121a`) → UI gold (`#c89146`/`#f4d57a`) + cream text (`#f4ecd6`) + mountain accent (`#4a6c7a`).
+   - Bg parchment scroll ONLY (`#e9d4b6`) → UI parchment-text (`#3a2410`) heading + gold border (`#c89146`) + mountain link (`#4a6c7a`).
+   - NO light gray / pure white page bg — cosmic dark là default page, parchment là scoped only.
+4. **Section identity qua role (East tone / West tone watermark)**:
+   - Hero = ấn tượng → cosmic dark gradient hoặc ảnh artistic overlay cosmic, UI gold + cream + East mountain watermark.
+   - Tool/divination = không gian suy ngẫm → cosmic solid hoặc gold shimmer gradient, UI gold accent + cream text, West vermilion watermark subtle.
+   - CTA cuối = quyết liệt → cosmic-to-gold gradient hoặc solid gold-deep, UI cream + cosmic contrast.
+   - Parchment scroll frame = reflection/history → parchment solid scoped, UI parchment-text + gold border, East watermark.
 
-**Gradient dark chuẩn (dùng thay cho dusk plum cũ):**
+**Gradient cosmic chuẩn (dùng thay cho warm cream cũ):**
 ```
-from-[#0f0a08] via-[#2a1c14] to-[#5a3a1a]
+from-[#05060a] via-[#0b0d14] to-[#14121a]
 ```
-Glow phụ: `bg-[#c89146]/25` (vàng đồng) + `bg-[#c8361d]/20` (chu sa) blur. Sparkle radial: `#c89146` + `#e9d4b6`.
+Glow phụ: `bg-[#c89146]/20` (gold) + `bg-[#4a6c7a]/15` (mountain) blur. Sparkle radial: `#f4d57a` + `#c89146`.
+
+**Gradient gold shimmer (section accent):**
+```
+from-[#8a5a1f] via-[#c89146] to-[#f4d57a]
+```
+Use case: feature highlight, CTA area, premium badge.
+
+**Watermark tone (subtle identity):**
+- **East tone** (mountain/jade): sao hoàng đạo section, tâm linh theme → subtle `mountain-500/10` overlay, golden zodiac icon with mountain glow.
+- **West tone** (vermilion/gold deep): warning/hắc đạo section, danger/hắc accent → subtle `vermilion/10` overlay, gold deep shine.
 
 **Ví dụ hiện có (tham khảo):**
-- Home Hero: ảnh `sakura-yuhi.jpg` (chỉ ảnh — KHÔNG kéo màu pink/plum của ảnh xuống UI) + UI vàng đồng + cream + đồng cổ.
-- HoangDao Hero: gradient sumi dark brand chuẩn + sparkle vàng đồng + heading cream + accent vàng đồng. Grid bên dưới: cream cards trên BodyBackground (different medium).
-- LunarCalendar (orphan): đã remap về sumi dark brand. Today badge gradient `#c89146 → #5a3a1a`, glow vàng đồng + chu sa.
+- Home Hero: ảnh `sakura-yuhi.jpg` overlay cosmic dark gradient + UI gold + cream + zodiac constellation East tone watermark.
+- HoangDao Hero: cosmic dark gradient chuẩn + sparkle gold + heading cream + accent gold. Card grid: cosmic cards trên cosmic bg (unified medium).
+- LunarCalendar (scoped): parchment solid section ONLY + parchment-text UI + gold border + East watermark subtle.
+- Daily Horoscope: cosmic dark base + 12 sao cards gold shimmer accent + cream text + West vermilion watermark 10% opacity.
 
-**Anti-pattern đã vấp:**
-- Hero ảnh sakura pink → LunarCalendar gradient indigo/plum để "extract dusk palette" → toàn site lệch sang tím. Fix: bỏ tím, chỉ extract WARM (đồng cổ/mực tàu/vàng đồng) — đây là brand sumi-mountain, không phải sakura twilight.
-- Dùng `bg-rose-*/pink-*` UI trên bg ảnh sakura pink → UI chìm. Fix: vàng đồng + cream + đồng cổ.
-- 2 section liền kề cùng 1 ảnh bg → đơn điệu. Fix: 1 ảnh + 1 gradient/solid.
-- Dùng tailwind palette mặc định (`purple-600`, `fuchsia-500`, `indigo-700`) "cho nhanh" → phá unified palette. Fix: chỉ hex từ Brand palette.
+**Anti-pattern đã vấp (và fix 2026-05-28):**
+- Cream/gold warm-light section liền cosmic dark → tone break, không liên kết. Fix: pivot ALL sections sang cosmic dark, parchment ONLY trong scroll scope.
+- Dùng tailwind palette mặc định (`gray-50`, `gray-100`, `purple-*`, `indigo-*`) "cho nhanh" → phá unified palette. Fix: chỉ hex từ Brand palette cosmic+gold.
+- Không seed watermark identity (East/West) → các section lẻ lẻ. Fix: thêm subtle `mountain/10` hoặc `vermilion/10` overlay qua `before/after` pseudo-element.
+- Section mới KHÔNG kiểm tra pixel gold → text không nổi trên cosmic. Fix: dùng chuẩn complementary trên bảng.
+- Light gray background "an toàn" trong form input area → không match cosmic theme. Fix: ink bg (`#0b0d14`) + gold border + cream text.
 
 **Khi có thêm section mới — checklist:**
-- Section ngay trước dùng medium nào? Ảnh / gradient / solid?
-- Section mới chọn 2-3 màu từ Brand palette, dùng medium khác.
-- UI color complementary: bg dark → UI sáng (vàng đồng/cream); bg cream → UI đậm (đồng cổ/mực tàu).
-- KIỂM TRA: không có hex tím/indigo/violet/fuchsia/plum + không có tailwind class `purple-*/indigo-*/violet-*/fuchsia-*`.
-- Test: scroll toàn trang → mỗi section rõ identity nhưng vẫn "cùng 1 bộ phim sumi-mountain".
+- Section ngay trước dùng medium nào? Ảnh / cosmic-gradient / gold-shimmer / parchment-scoped?
+- Section mới chọn medium khác, pick 2-3 màu từ Brand palette cosmic+gold.
+- East tone (mountain/jade) hay West tone (vermilion/gold-deep) watermark subtle?
+- UI color complementary: bg cosmic → UI gold/cream; bg parchment → UI parchment-text/gold.
+- KIỂM TRA: KHÔNG có cream/light-gray page bg, KHÔNG có hex tím/indigo/violet/fuchsia/plum, KHÔNG có tailwind class `purple-*/indigo-*/violet-*/fuchsia-*/gray-50/gray-100`.
+- Test: scroll toàn trang → mỗi section rõ identity qua East/West watermark nhưng vẫn "cùng 1 bộ phim cosmic dark + gold mystic".
 
 ---
 

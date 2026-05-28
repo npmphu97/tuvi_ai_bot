@@ -96,7 +96,6 @@ export default function TxClient({
         ),
       );
       toast.success('Đã duyệt giao dịch thành công');
-      // Refresh để stats panel + count cập nhật chính xác
       router.refresh();
     } catch (e) {
       const msg = (e as Error).message;
@@ -133,10 +132,10 @@ export default function TxClient({
   };
 
   return (
-    <div className="rounded-3xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/95 p-5 md:p-7">
+    <div className="rounded-3xl border border-gold/25 bg-cosmic-panel p-5 md:p-7">
       <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
-        <h2 className="text-xl font-semibold">
-          Giao dịch <span className="text-[#4a3a30] font-normal text-[14px]">({total})</span>
+        <h2 className="text-xl font-semibold text-parchment">
+          Giao dịch <span className="text-parchment/50 font-normal text-[14px]">({total})</span>
         </h2>
         <div className="flex items-center gap-2 flex-wrap">
           {FILTER_OPTIONS.map((f) => (
@@ -146,21 +145,21 @@ export default function TxClient({
               onClick={() => setStatus(f.value)}
               className={`px-3 py-1.5 rounded-full text-[12px] font-semibold transition ${
                 status === f.value
-                  ? 'bg-[#5a3a1a] text-[#fbf3e2]'
-                  : 'border border-[#4a6c7a]/30 text-[#4a3a30] hover:bg-[#fbf3e2]/70'
+                  ? 'bg-gold text-cosmic-DEFAULT'
+                  : 'border border-gold/25 text-parchment/60 hover:border-gold/50 hover:text-parchment'
               }`}
             >
               {f.label}
             </button>
           ))}
           {isPending && (
-            <span className="inline-block w-3 h-3 rounded-full bg-[#c89146] animate-pulse" />
+            <span className="inline-block w-3 h-3 rounded-full bg-gold animate-pulse" />
           )}
         </div>
       </div>
 
       {err && (
-        <div className="mb-3 rounded-xl border border-[#c8361d]/40 bg-[#c8361d]/10 px-3 py-2 text-[#c8361d] text-[13px]">
+        <div className="mb-3 rounded-xl border border-brand-vermilion/40 bg-brand-vermilion/10 px-3 py-2 text-brand-vermilion text-[13px]">
           ⚠ {err}
         </div>
       )}
@@ -168,7 +167,7 @@ export default function TxClient({
       <div className={`overflow-x-auto transition-opacity ${isPending ? 'opacity-60' : ''}`}>
         <table className="w-full text-[13.5px]">
           <thead>
-            <tr className="border-b border-[#4a6c7a]/30 text-left text-[#4a3a30] uppercase tracking-[0.15em] text-[10px]">
+            <tr className="border-b border-gold/15 text-left text-parchment/40 uppercase tracking-[0.15em] text-[10px]">
               <th className="py-2 pr-3">Bank Ref</th>
               <th className="py-2 pr-3">User</th>
               <th className="py-2 pr-3">Loại</th>
@@ -180,20 +179,20 @@ export default function TxClient({
           </thead>
           <tbody>
             {rows.map((r) => (
-              <tr key={r.id} className="border-b border-[#4a6c7a]/15">
-                <td className="py-2.5 pr-3 font-mono text-[12px] text-[#5a3a1a]">
+              <tr key={r.id} className="border-b border-gold/10 hover:bg-cosmic-raised/50 transition">
+                <td className="py-2.5 pr-3 font-mono text-[12px] text-gold/80">
                   {r.bankRef ?? '—'}
                 </td>
                 <td className="py-2.5 pr-3">
-                  <div className="text-[#0f0a08] font-medium">{r.userName ?? '—'}</div>
-                  <div className="text-[11px] text-[#4a3a30]">{r.userEmail}</div>
+                  <div className="text-parchment font-medium">{r.userName ?? '—'}</div>
+                  <div className="text-[11px] text-parchment/50">{r.userEmail}</div>
                 </td>
-                <td className="py-2.5 pr-3 text-[#4a3a30]">
+                <td className="py-2.5 pr-3 text-parchment/60">
                   {TYPE_LABEL[r.type] ?? r.type}
                 </td>
                 <td
                   className={`py-2.5 pr-3 text-right font-semibold tabular-nums ${
-                    r.amountVnd > 0 ? 'text-[#3a8a5e]' : 'text-[#c8361d]'
+                    r.amountVnd > 0 ? 'text-[#3a8a5e]' : 'text-brand-vermilion'
                   }`}
                 >
                   {r.amountVnd > 0 ? '+' : ''}
@@ -202,7 +201,7 @@ export default function TxClient({
                 <td className="py-2.5 pr-3">
                   <StatusBadge status={r.status} />
                 </td>
-                <td className="py-2.5 pr-3 text-[12px] text-[#4a3a30]">
+                <td className="py-2.5 pr-3 text-[12px] text-parchment/50">
                   {new Date(r.createdAt).toLocaleString('vi-VN')}
                 </td>
                 <td className="py-2.5 pr-3 text-right whitespace-nowrap">
@@ -212,7 +211,7 @@ export default function TxClient({
                         type="button"
                         onClick={() => approve(r.id)}
                         disabled={busy === r.id}
-                        className="px-3 py-1.5 rounded-full bg-[#3a8a5e] text-[#fbf3e2] text-[12px] font-semibold hover:bg-[#2a6e48] transition disabled:opacity-50"
+                        className="px-3 py-1.5 rounded-full bg-[#3a8a5e] text-parchment text-[12px] font-semibold hover:bg-[#2a6e48] transition disabled:opacity-50"
                       >
                         {busy === r.id ? '…' : 'Duyệt'}
                       </button>
@@ -220,20 +219,20 @@ export default function TxClient({
                         type="button"
                         onClick={() => reject(r.id)}
                         disabled={busy === r.id}
-                        className="px-3 py-1.5 rounded-full border border-[#c8361d]/45 text-[#c8361d] text-[12px] font-semibold hover:bg-[#c8361d]/10 disabled:opacity-50"
+                        className="px-3 py-1.5 rounded-full border border-brand-vermilion/45 text-brand-vermilion text-[12px] font-semibold hover:bg-brand-vermilion/10 disabled:opacity-50"
                       >
                         Từ chối
                       </button>
                     </div>
                   ) : (
-                    <span className="text-[11px] text-[#4a3a30]">—</span>
+                    <span className="text-[11px] text-parchment/30">—</span>
                   )}
                 </td>
               </tr>
             ))}
             {rows.length === 0 && (
               <tr>
-                <td colSpan={7} className="py-8 text-center text-[#4a3a30] italic">
+                <td colSpan={7} className="py-8 text-center text-parchment/40 italic">
                   Không có giao dịch{status !== 'all' ? ` ở trạng thái "${STATUS_LABEL[status] ?? status}"` : ''}.
                 </td>
               </tr>
@@ -252,9 +251,9 @@ function StatusBadge({ status }: { status: string }) {
     pending: '#c89146',
     completed: '#3a8a5e',
     rejected: '#c8361d',
-    cancelled: '#4a3a30',
+    cancelled: '#4a6c7a',
   };
-  const color = c[status] ?? '#4a3a30';
+  const color = c[status] ?? '#4a6c7a';
   return (
     <span
       className="px-2.5 py-0.5 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold"

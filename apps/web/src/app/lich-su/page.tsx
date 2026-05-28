@@ -162,17 +162,17 @@ export default async function HistoryPage({
   const items = rowsRes.rows.map(buildHistoryItem);
 
   return (
-    <div className="min-h-screen px-6 py-12 text-[#0f0a08]">
+    <div className="min-h-screen px-6 py-12">
       <div className="max-w-4xl mx-auto">
         <header className="flex items-center justify-between gap-3 flex-wrap mb-6">
           <div>
             <h1
-              className="text-4xl md:text-5xl font-serif italic"
+              className="text-4xl md:text-5xl font-serif italic text-parchment"
               style={{ fontFamily: SERIF_FONT }}
             >
               Lịch sử của tôi
             </h1>
-            <p className="mt-2 text-[14px] text-[#4a3a30]">
+            <p className="mt-2 text-[14px] text-parchment/50">
               {counts.total} lá số ({counts.tuVi} Tử Vi · {counts.tuTru} Tứ Trụ · {counts.hoangDao} Hoàng Đạo · {counts.tarot} Tarot) — sắp xếp theo thời gian gần nhất
             </p>
           </div>
@@ -194,9 +194,9 @@ export default async function HistoryPage({
         </div>
 
         {counts.total === 0 ? (
-          <div className="rounded-3xl border border-dashed border-[#c89146]/55 bg-[#fbf3e2]/70 p-10 text-center">
+          <div className="rounded-3xl border border-dashed border-gold/30 bg-cosmic-panel p-10 text-center">
             <div className="text-5xl mb-3">📜</div>
-            <p className="text-[15px] text-[#4a3a30] mb-4">
+            <p className="text-[15px] text-parchment/60 mb-4">
               Bạn chưa có lá số nào. Bắt đầu khám phá bản mệnh ngay!
             </p>
             <div className="flex items-center justify-center gap-2 flex-wrap">
@@ -207,7 +207,7 @@ export default async function HistoryPage({
             </div>
           </div>
         ) : items.length === 0 ? (
-          <div className="rounded-2xl border border-[#4a6c7a]/30 bg-[#fbf3e2]/70 p-8 text-center text-[14px] text-[#4a3a30] italic">
+          <div className="rounded-2xl border border-gold/20 bg-cosmic-panel p-8 text-center text-[14px] text-parchment/50 italic">
             Không có lá số {kind !== 'all' ? KIND_STYLE[kind].label : ''} trong trang này.
           </div>
         ) : (
@@ -217,10 +217,10 @@ export default async function HistoryPage({
               return (
                 <li
                   key={`${c.kind}-${c.id}`}
-                  className="flex items-center gap-4 rounded-2xl border border-[#4a6c7a]/30 bg-[#fbf3e2]/90 hover:bg-[#fbf3e2] hover:border-[#4a6c7a]/55 transition p-4"
+                  className="flex items-center gap-4 rounded-2xl border border-gold/15 bg-cosmic-panel hover:border-gold/35 transition p-4"
                 >
                   <div
-                    className="w-12 h-12 rounded-full text-[#fbf3e2] flex items-center justify-center text-xl shrink-0 font-serif"
+                    className="w-12 h-12 rounded-full text-cosmic-DEFAULT flex items-center justify-center text-xl shrink-0 font-serif"
                     style={{
                       background: `linear-gradient(135deg, ${style.color}, #c89146)`,
                       fontFamily: SERIF_FONT,
@@ -230,7 +230,7 @@ export default async function HistoryPage({
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-semibold text-[15px] text-[#0f0a08]">{c.name}</span>
+                      <span className="font-semibold text-[15px] text-parchment">{c.name}</span>
                       <span
                         className="px-2 py-0.5 rounded-full text-[10px] tracking-[0.2em] uppercase font-bold"
                         style={{
@@ -242,7 +242,7 @@ export default async function HistoryPage({
                         {style.label}
                       </span>
                     </div>
-                    <div className="mt-0.5 text-[12px] text-[#4a3a30]">
+                    <div className="mt-0.5 text-[12px] text-parchment/50">
                       {c.detail} · {c.gender === 'male' ? '♂ Nam' : '♀ Nữ'} ·{' '}
                       {new Date(c.createdAt).toLocaleString('vi-VN', {
                         day: '2-digit',
@@ -253,7 +253,7 @@ export default async function HistoryPage({
                   </div>
                   <Link
                     href={c.href}
-                    className="px-4 py-2 rounded-full bg-[#fbf3e2] border border-[#c89146]/55 text-[#5a3a1a] text-[12.5px] font-semibold hover:bg-[#f5e3c0] transition"
+                    className="px-4 py-2 rounded-full border border-gold/35 text-gold/80 text-[12.5px] font-semibold hover:border-gold hover:text-gold bg-gold/5 transition"
                   >
                     Xem chi tiết →
                   </Link>
@@ -352,15 +352,15 @@ function KindTab({
       href={kind === 'all' ? '/lich-su' : `/lich-su?kind=${kind}`}
       className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12.5px] font-semibold transition border ${
         active
-          ? 'text-[#fbf3e2] border-transparent shadow-[0_4px_12px_-4px_rgba(90,58,26,0.4)]'
-          : 'bg-[#fbf3e2] text-[#4a3a30] border-[#4a6c7a]/30 hover:border-[#4a6c7a]/60'
+          ? 'text-cosmic-DEFAULT border-transparent shadow-soft'
+          : 'bg-cosmic-panel text-parchment/60 border-gold/20 hover:border-gold/45 hover:text-parchment'
       }`}
       style={active ? { background: color } : undefined}
     >
       <span>{label}</span>
       <span
         className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold tabular-nums ${
-          active ? 'bg-[#fbf3e2]/25 text-[#fbf3e2]' : 'bg-[#4a6c7a]/15 text-[#4a3a30]'
+          active ? 'bg-white/20 text-white' : 'bg-gold/10 text-parchment/50'
         }`}
       >
         {count}
@@ -381,10 +381,10 @@ function CreateLink({
   children: React.ReactNode;
 }) {
   const TONE = {
-    brown: 'bg-gradient-to-r from-[#5a3a1a] to-[#c89146] text-[#fbf3e2] hover:from-[#4a6c7a] hover:to-[#d4a05a] shadow',
-    mountain: 'border border-[#4a6c7a]/55 bg-[#fbf3e2] text-[#4a6c7a] hover:bg-[#e8eef2]',
-    red: 'border border-[#c8361d]/55 bg-[#fbf3e2] text-[#c8361d] hover:bg-[#fde8e5]',
-    tarot: 'border border-[#7a4a3a]/55 bg-[#fbf3e2] text-[#7a4a3a] hover:bg-[#f0e3d3]',
+    brown: 'bg-gradient-to-r from-gold-deep to-gold text-cosmic-DEFAULT hover:brightness-110 shadow-goldGlow',
+    mountain: 'border border-[#4a6c7a]/45 bg-cosmic-panel text-[#4a6c7a] hover:border-[#4a6c7a]/70',
+    red: 'border border-brand-vermilion/45 bg-cosmic-panel text-brand-vermilion hover:border-brand-vermilion/70',
+    tarot: 'border border-gold/35 bg-cosmic-panel text-gold/80 hover:border-gold/65',
   } as const;
   return (
     <Link

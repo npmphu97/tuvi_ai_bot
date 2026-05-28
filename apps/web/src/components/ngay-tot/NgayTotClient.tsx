@@ -59,7 +59,7 @@ const KIENG_KY_POOL = [
 ];
 
 const SELECT_STYLE =
-  'w-full h-11 px-3 rounded-lg border border-[#c89146]/55 bg-[#fbf3e2] text-[#0f0a08] focus:outline-none focus:border-[#4a6c7a]';
+  'w-full h-11 px-3 rounded-lg border border-gold/35 bg-cosmic-raised text-parchment focus:outline-none focus:border-gold/65';
 
 type DayKind = 'daicat' | 'hoangdao' | 'hacdao' | 'binh';
 
@@ -225,36 +225,36 @@ function Calendar() {
     <section id="lich" className="relative py-20 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.4em] text-[#4a6c7a] uppercase">
-            <span className="w-8 h-px bg-[#4a6c7a]/60" />
+          <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.4em] text-gold/60 uppercase">
+            <span className="w-8 h-px bg-gold/40" />
             Lịch Vạn Niên
-            <span className="w-8 h-px bg-[#4a6c7a]/60" />
+            <span className="w-8 h-px bg-gold/40" />
           </div>
           <h2
-            className="mt-3 text-5xl md:text-6xl font-serif text-[#0f0a08]"
+            className="mt-3 text-5xl md:text-6xl font-serif text-parchment"
             style={{ fontFamily: SERIF_FONT }}
           >
-            Ngày tốt cho <em className="text-[#4a6c7a]">mọi việc</em>
+            Ngày tốt cho <em className="text-gold">mọi việc</em>
           </h2>
-          <p className="mt-4 max-w-xl mx-auto text-[#0f0a08]">
+          <p className="mt-4 max-w-xl mx-auto text-parchment/60">
             Đối chiếu âm dương lịch, xem ngày hoàng đạo — hắc đạo, can chi tứ
             trụ và việc nên làm trong ngày.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-[1fr_400px] gap-6">
-          <div className="rounded-3xl border border-[#c89146]/55 bg-[#fbf3e2]/94 backdrop-blur-sm shadow-[0_30px_80px_-30px_rgba(90,58,26,0.25)] p-6 md:p-8">
+          <div className="rounded-3xl border border-gold/35 bg-cosmic-panel shadow-cosmicLift p-6 md:p-8">
             <div className="flex items-center justify-between mb-5">
               <button
                 type="button"
                 onClick={() => navMonth(-1)}
-                className="w-10 h-10 rounded-full border border-[#c89146]/55 hover:bg-[#5a3a1a] hover:text-[#fbf3e2] transition flex items-center justify-center text-[#5a3a1a]"
+                className="w-10 h-10 rounded-full border border-gold/40 text-gold hover:bg-gold/15 transition flex items-center justify-center"
                 aria-label="Tháng trước"
               >
                 ‹
               </button>
               <div
-                className="font-serif italic text-[26px] text-[#0f0a08]"
+                className="font-serif italic text-[26px] text-parchment"
                 style={{ fontFamily: SERIF_FONT }}
               >
                 {monthName}
@@ -262,7 +262,7 @@ function Calendar() {
               <button
                 type="button"
                 onClick={() => navMonth(1)}
-                className="w-10 h-10 rounded-full border border-[#c89146]/55 hover:bg-[#5a3a1a] hover:text-[#fbf3e2] transition flex items-center justify-center text-[#5a3a1a]"
+                className="w-10 h-10 rounded-full border border-gold/40 text-gold hover:bg-gold/15 transition flex items-center justify-center"
                 aria-label="Tháng sau"
               >
                 ›
@@ -272,7 +272,7 @@ function Calendar() {
               {WEEKDAYS.map((d) => (
                 <div
                   key={d}
-                  className="text-center text-[11px] tracking-widest text-[#0f0a08] py-2"
+                  className="text-center text-[11px] tracking-widest text-parchment/50 py-2"
                 >
                   {d}
                 </div>
@@ -293,12 +293,12 @@ function Calendar() {
                     }
                     className={`relative aspect-square rounded-xl border text-left p-2 transition group ${
                       sel
-                        ? 'bg-gradient-to-br from-[#e9c98a] to-[#c89146] border-[#4a6c7a] shadow-[0_8px_24px_-8px_rgba(138,90,46,0.6)]'
+                        ? 'bg-gradient-to-br from-gold to-gold-deep border-gold/80 shadow-goldGlow'
                         : c.out
-                        ? 'border-transparent text-[#4a3a30]/50 cursor-default'
+                        ? 'border-transparent text-parchment/20 cursor-default'
                         : tod
-                        ? 'border-[#4a6c7a] border-2 bg-[#fbf3e2]'
-                        : 'border-[#c89146]/45 bg-[#fbf3e2]/75 hover:border-[#4a6c7a]/60 hover:bg-[#fbf3e2]'
+                        ? 'border-brand-mountain border-2 bg-cosmic-raised'
+                        : 'border-gold/20 bg-cosmic-raised hover:border-gold/45 hover:bg-cosmic-veil'
                     }`}
                   >
                     {!c.out && cellMeta && !sel && (
@@ -307,13 +307,13 @@ function Calendar() {
                         style={{ background: dotColorFor(cellMeta.kind) }}
                       />
                     )}
-                    <div className="text-[15px] font-semibold text-[#0f0a08]">
+                    <div className={`text-[15px] font-semibold ${sel ? 'text-cosmic-DEFAULT' : 'text-parchment'}`}>
                       {c.d}
                     </div>
                     {!c.out && cellMeta && (
                       <div
                         className={`text-[10px] mt-0.5 ${
-                          sel ? 'text-[#5a3a1a]' : 'text-[#0f0a08]'
+                          sel ? 'text-cosmic-DEFAULT/70' : 'text-parchment/50'
                         }`}
                       >
                         {cellMeta.lunarDay}
@@ -323,7 +323,7 @@ function Calendar() {
                 );
               })}
             </div>
-            <div className="mt-5 pt-4 border-t border-[#c89146]/45 flex flex-wrap gap-4 text-[11px] text-[#0f0a08]">
+            <div className="mt-5 pt-4 border-t border-gold/25 flex flex-wrap gap-4 text-[11px] text-parchment/60">
               <span className="inline-flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#3a8a5e]" /> Hoàng đạo
               </span>
@@ -331,34 +331,34 @@ function Calendar() {
                 <span className="w-2 h-2 rounded-full bg-[#c8361d]" /> Hắc đạo
               </span>
               <span className="inline-flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#c89146]" /> Bình
+                <span className="w-2 h-2 rounded-full bg-gold" /> Bình
               </span>
               <span className="inline-flex items-center gap-1.5 ml-auto">
-                <span className="w-3 h-3 rounded-md border-2 border-[#4a6c7a]" />{' '}
+                <span className="w-3 h-3 rounded-md border-2 border-brand-mountain" />{' '}
                 Hôm nay
               </span>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-[#c89146]/55 bg-[#fbf3e2]/94 backdrop-blur-sm p-6 md:p-7">
+          <div className="rounded-3xl border border-gold/35 bg-cosmic-panel p-6 md:p-7">
             <div className="flex items-baseline gap-4">
               <div
-                className="text-[88px] leading-none font-serif italic text-[#5a3a1a]"
+                className="text-[88px] leading-none font-serif italic text-gold"
                 style={{ fontFamily: SERIF_FONT }}
               >
                 {selected.d}
               </div>
               <div>
-                <div className="text-[#0f0a08] font-medium">
+                <div className="text-parchment font-medium">
                   {wdName}, Tháng {selected.m} {selected.y}
                 </div>
-                <div className="text-sm text-[#0f0a08] mt-1">
+                <div className="text-sm text-parchment/60 mt-1">
                   Âm lịch:{' '}
-                  <span className="text-[#5a3a1a] font-semibold">
+                  <span className="text-gold font-semibold">
                     {meta.lunarDay}/{meta.lunarMonth}
                   </span>{' '}
                   năm{' '}
-                  <span className="text-[#5a3a1a] font-semibold">
+                  <span className="text-gold font-semibold">
                     {meta.yearCanChi}
                   </span>
                 </div>
@@ -381,11 +381,11 @@ function Calendar() {
               </span>
             </div>
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-xl border border-[#c89146]/50 bg-[#fbf3e2]/80 p-4">
-                <div className="text-[10px] tracking-[0.3em] text-[#0f0a08] font-semibold uppercase mb-2">
+              <div className="rounded-xl border border-gold/25 bg-cosmic-raised p-4">
+                <div className="text-[10px] tracking-[0.3em] text-parchment/50 font-semibold uppercase mb-2">
                   Nên làm
                 </div>
-                <ul className="space-y-1.5 text-sm text-[#0f0a08]">
+                <ul className="space-y-1.5 text-sm text-parchment/75">
                   {meta.nenLam.map((n) => (
                     <li key={n} className="flex gap-2">
                       <span className="text-[#3a8a5e]">•</span>
@@ -394,21 +394,21 @@ function Calendar() {
                   ))}
                 </ul>
               </div>
-              <div className="rounded-xl border border-[#c89146]/50 bg-[#fbf3e2]/80 p-4">
-                <div className="text-[10px] tracking-[0.3em] text-[#0f0a08] font-semibold uppercase mb-2">
+              <div className="rounded-xl border border-gold/25 bg-cosmic-raised p-4">
+                <div className="text-[10px] tracking-[0.3em] text-parchment/50 font-semibold uppercase mb-2">
                   Kiêng kỵ
                 </div>
-                <ul className="space-y-1.5 text-sm text-[#0f0a08]">
+                <ul className="space-y-1.5 text-sm text-parchment/75">
                   {meta.kiengKy.map((n) => (
                     <li key={n} className="flex gap-2">
-                      <span className="text-[#c8361d]">•</span>
+                      <span className="text-brand-vermilion">•</span>
                       {n}
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-            <div className="mt-5 pt-4 border-t border-[#c89146]/45 grid grid-cols-4 gap-2">
+            <div className="mt-5 pt-4 border-t border-gold/25 grid grid-cols-4 gap-2">
               <PillarCard label="Năm" value={meta.yearCanChi} />
               <PillarCard label="Tháng" value={meta.monthCanChi} />
               <PillarCard label="Ngày" value={meta.canChi} />
@@ -428,7 +428,7 @@ function CalendarSkeleton() {
   return (
     <section className="relative py-20 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="rounded-3xl border border-[#c89146]/55 bg-[#fbf3e2]/94 backdrop-blur-sm p-8 min-h-[600px] flex items-center justify-center text-[#0f0a08]">
+        <div className="rounded-3xl border border-gold/35 bg-cosmic-panel p-8 min-h-[600px] flex items-center justify-center text-parchment/50">
           Đang tải lịch…
         </div>
       </div>
@@ -438,12 +438,12 @@ function CalendarSkeleton() {
 
 function PillarCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-[#c89146]/50 bg-[#fbf3e2]/75 px-2.5 py-2.5 text-center">
-      <div className="text-[9px] tracking-[0.25em] text-[#0f0a08] font-semibold uppercase">
+    <div className="rounded-lg border border-gold/25 bg-cosmic-raised px-2.5 py-2.5 text-center">
+      <div className="text-[9px] tracking-[0.25em] text-parchment/40 font-semibold uppercase">
         {label}
       </div>
       <div
-        className="mt-1 text-[13px] font-serif italic text-[#5a3a1a]"
+        className="mt-1 text-[13px] font-serif italic text-gold"
         style={{ fontFamily: SERIF_FONT }}
       >
         {value}
@@ -515,22 +515,22 @@ function DeepReading() {
   return (
     <section id="luangiai" className="relative py-16 px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="rounded-3xl border border-[#c89146]/55 bg-[#fbf3e2]/90 backdrop-blur-sm p-7 md:p-10 shadow-[0_30px_80px_-30px_rgba(90,58,26,0.25)]">
+        <div className="rounded-3xl border border-gold/30 bg-cosmic-panel p-7 md:p-10 shadow-cosmicLift">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <div
-                className="text-2xl md:text-3xl font-serif italic text-[#0f0a08]"
+                className="text-2xl md:text-3xl font-serif italic text-parchment"
                 style={{ fontFamily: SERIF_FONT }}
               >
                 {wdName}, {dateStr}
               </div>
-              <div className="mt-1 text-[#0f0a08]">
+              <div className="mt-1 text-parchment/60">
                 Ngày {meta.lunarDay} tháng {meta.lunarMonth} năm{' '}
-                <span className="font-semibold">{meta.yearCanChi}</span>
+                <span className="font-semibold text-parchment">{meta.yearCanChi}</span>
               </div>
-              <div className="text-[#0f0a08]">
+              <div className="text-parchment/60">
                 Can Chi:{' '}
-                <span className="font-semibold text-[#5a3a1a]">
+                <span className="font-semibold text-gold">
                   {meta.canChi}
                 </span>
               </div>
@@ -571,25 +571,25 @@ function DeepReading() {
             )}
           </div>
 
-          <div className="my-6 h-px bg-gradient-to-r from-transparent via-[#b58a4a]/40 to-transparent" />
+          <div className="my-6 h-px bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
 
           <div className="flex items-center gap-3 mb-4">
             <h3
-              className="text-2xl font-serif text-[#0f0a08]"
+              className="text-2xl font-serif text-parchment"
               style={{ fontFamily: SERIF_FONT }}
             >
               Luận Giải Ngày
             </h3>
-            <span className="px-2.5 py-1 rounded-full bg-[#3a8a5e]/15 text-[#2a6e48] text-[10px] tracking-[0.2em] font-bold uppercase">
+            <span className="px-2.5 py-1 rounded-full bg-[#3a8a5e]/15 text-[#3a8a5e] text-[10px] tracking-[0.2em] font-bold uppercase">
               Miễn Phí
             </span>
           </div>
 
-          <div className="rounded-2xl border border-[#3a8a5e]/30 bg-gradient-to-br from-[#f5e8d0]/60 to-[#fbf3e2]/30 p-6 md:p-8">
+          <div className="rounded-2xl border border-[#3a8a5e]/25 bg-cosmic-raised p-6 md:p-8">
             {!text && !loading && (
               <div className="text-center py-6">
                 <p
-                  className="text-[#0f0a08] mb-4 italic font-serif text-lg"
+                  className="text-parchment/60 mb-4 italic font-serif text-lg"
                   style={{ fontFamily: SERIF_FONT }}
                 >
                   Hệ thống sẽ luận giải sâu sắc về ngày này — kết hợp Can Chi,
@@ -598,53 +598,43 @@ function DeepReading() {
                 <button
                   type="button"
                   onClick={ask}
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gradient-to-br from-[#c89146] to-[#4a6c7a] text-[#fbf3e2] font-medium hover:from-[#d4a05a] hover:to-[#85501a] transition shadow-md"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-gold-deep to-gold text-cosmic-DEFAULT font-medium hover:brightness-110 transition shadow-goldGlow"
                 >
                   ✦ Xin luận giải ngày này
                 </button>
               </div>
             )}
             {loading && (
-              <div className="flex items-center justify-center gap-3 py-10 text-[#0f0a08] italic">
-                <span className="inline-block w-2 h-2 bg-[#4a6c7a] rounded-full animate-pulse" />
-                <span
-                  className="inline-block w-2 h-2 bg-[#4a6c7a] rounded-full animate-pulse"
-                  style={{ animationDelay: '0.2s' }}
-                />
-                <span
-                  className="inline-block w-2 h-2 bg-[#4a6c7a] rounded-full animate-pulse"
-                  style={{ animationDelay: '0.4s' }}
-                />
+              <div className="flex items-center justify-center gap-3 py-10 text-parchment/60 italic">
+                <span className="inline-block w-2 h-2 bg-gold rounded-full animate-pulse" />
+                <span className="inline-block w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                <span className="inline-block w-2 h-2 bg-gold rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
                 <span className="ml-2">Đang lắng nghe linh khí…</span>
               </div>
             )}
             {paragraphs.length > 0 && (
-              <div className="space-y-4 text-[15.5px] leading-[1.85] text-[#000]">
+              <div className="space-y-4 text-[15.5px] leading-[1.85] text-parchment/85">
                 {paragraphs.map((p, i) => (
                   <p
                     key={i}
                     className={
                       i === 0
-                        ? 'first-letter:text-5xl first-letter:font-serif first-letter:text-[#5a3a1a] first-letter:mr-2 first-letter:float-left first-letter:leading-[0.9]'
+                        ? 'first-letter:text-5xl first-letter:font-serif first-letter:text-gold first-letter:mr-2 first-letter:float-left first-letter:leading-[0.9]'
                         : ''
                     }
                   >
                     {p}
                   </p>
                 ))}
-                <div className="pt-3 border-t border-[#c89146]/45 flex flex-wrap gap-3 items-center justify-between">
-                  <div className="text-xs text-[#0f0a08]">
+                <div className="pt-3 border-t border-gold/25 flex flex-wrap gap-3 items-center justify-between">
+                  <div className="text-xs text-parchment/40">
                     Diễn giải bởi{' '}
-                    <span className="text-[#5a3a1a] font-semibold italic">
+                    <span className="text-gold/80 font-semibold italic">
                       Vận Mệnh
                     </span>{' '}
                     · {dateStr}
                   </div>
-                  <button
-                    type="button"
-                    onClick={ask}
-                    className="text-[#5a3a1a] hover:text-[#4a6c7a] text-sm"
-                  >
+                  <button type="button" onClick={ask} className="text-gold/60 hover:text-gold text-sm transition">
                     ↻ Luận giải lại
                   </button>
                 </div>
@@ -653,7 +643,7 @@ function DeepReading() {
           </div>
 
           <div className="mt-6 flex items-center justify-center gap-2 flex-wrap text-sm">
-            <span className="text-[#0f0a08]">Chọn ngày khác:</span>
+            <span className="text-parchment/50">Chọn ngày khác:</span>
             <input
               type="date"
               value={`${date.y}-${String(date.m).padStart(2, '0')}-${String(date.d).padStart(2, '0')}`}
@@ -665,7 +655,7 @@ function DeepReading() {
                   setText('');
                 }
               }}
-              className="px-3 py-2 rounded-lg border border-[#c89146]/55 bg-[#fbf3e2] text-[#0f0a08] focus:outline-none focus:border-[#4a6c7a]"
+              className="px-3 py-2 rounded-lg border border-gold/30 bg-cosmic-raised text-parchment focus:outline-none focus:border-gold/55 transition"
             />
           </div>
         </div>
@@ -693,7 +683,7 @@ function FindDay() {
   if (!today || !month) {
     return (
       <section className="relative py-20 px-6">
-        <div className="max-w-6xl mx-auto text-center text-[#0f0a08]">
+        <div className="max-w-6xl mx-auto text-center text-parchment/50">
           Đang tải…
         </div>
       </section>
@@ -730,24 +720,24 @@ function FindDay() {
     <section id="timngay" className="relative py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.4em] text-[#4a6c7a] uppercase">
-            <span className="w-8 h-px bg-[#4a6c7a]/60" />
+          <div className="inline-flex items-center gap-3 text-[11px] tracking-[0.4em] text-gold/60 uppercase">
+            <span className="w-8 h-px bg-gold/40" />
             Tìm Ngày Tốt
-            <span className="w-8 h-px bg-[#4a6c7a]/60" />
+            <span className="w-8 h-px bg-gold/40" />
           </div>
           <h2
-            className="mt-3 text-5xl md:text-6xl font-serif text-[#0f0a08]"
+            className="mt-3 text-5xl md:text-6xl font-serif text-parchment"
             style={{ fontFamily: SERIF_FONT }}
           >
-            Chọn ngày <em className="text-[#4a6c7a]">hoàng đạo</em>
+            Chọn ngày <em className="text-gold">hoàng đạo</em>
           </h2>
-          <p className="mt-4 max-w-xl mx-auto text-[#0f0a08]">
+          <p className="mt-4 max-w-xl mx-auto text-parchment/60">
             Tra cứu ngày giờ tốt cho từng việc trọng đại — đối chiếu tuổi, mệnh
             và can chi.
           </p>
         </div>
 
-        <div className="rounded-3xl border border-[#c89146]/55 bg-[#fbf3e2]/94 backdrop-blur-sm p-6 md:p-8 shadow-[0_30px_80px_-30px_rgba(90,58,26,0.25)]">
+        <div className="rounded-3xl border border-gold/30 bg-cosmic-panel p-6 md:p-8 shadow-cosmicLift">
           <div className="grid sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_auto] gap-4 items-end">
             <Field label="Việc cần xem">
               <select
@@ -794,7 +784,7 @@ function FindDay() {
             <button
               type="button"
               onClick={search}
-              className="h-11 px-7 rounded-full bg-gradient-to-br from-[#c89146] to-[#4a6c7a] text-[#fbf3e2] font-medium hover:from-[#d4a05a] hover:to-[#a06a32] transition shadow-md whitespace-nowrap"
+              className="h-11 px-7 rounded-full bg-gradient-to-r from-gold-deep to-gold text-cosmic-DEFAULT font-medium hover:brightness-110 transition shadow-goldGlow whitespace-nowrap"
             >
               ✦ Tìm ngày
             </button>
@@ -803,9 +793,8 @@ function FindDay() {
           {results && (
             <div className="mt-7 grid sm:grid-cols-3 gap-4">
               {results.length === 0 && (
-                <div className="sm:col-span-3 text-center py-10 text-[#0f0a08]">
-                  Không tìm thấy ngày phù hợp trong tháng này — hãy thử tháng
-                  khác.
+                <div className="sm:col-span-3 text-center py-10 text-parchment/50">
+                  Không tìm thấy ngày phù hợp trong tháng này — hãy thử tháng khác.
                 </div>
               )}
               {results.map((r, i) => {
@@ -820,20 +809,20 @@ function FindDay() {
                 return (
                   <div
                     key={i}
-                    className="rounded-2xl border border-[#c89146]/55 bg-[#fbf3e2]/85 p-5 text-center hover:border-[#4a6c7a]/60 transition"
+                    className="rounded-2xl border border-gold/25 bg-cosmic-raised p-5 text-center hover:border-gold/45 transition"
                   >
-                    <div className="text-[10px] tracking-[0.3em] text-[#0f0a08] font-semibold uppercase">
+                    <div className="text-[10px] tracking-[0.3em] text-parchment/50 font-semibold uppercase">
                       {wd} · Tháng {r.m}/{r.y}
                     </div>
                     <div
-                      className="my-3 text-[64px] leading-none font-serif italic text-[#4a6c7a]"
+                      className="my-3 text-[64px] leading-none font-serif italic text-gold"
                       style={{ fontFamily: SERIF_FONT }}
                     >
                       {r.d}
                     </div>
-                    <div className="text-sm text-[#0f0a08]">
+                    <div className="text-sm text-parchment/60">
                       Âm:{' '}
-                      <span className="text-[#0f0a08] font-medium">
+                      <span className="text-parchment font-medium">
                         {r.meta.lunarDay}/{r.meta.lunarMonth}
                       </span>{' '}
                       · {r.meta.canChi}
@@ -844,7 +833,7 @@ function FindDay() {
                         {ratingLabel}
                       </span>
                     </div>
-                    <div className="mt-3 text-[11px] text-[#0f0a08]">
+                    <div className="mt-3 text-[11px] text-parchment/50">
                       Giờ tốt:{' '}
                       {r.meta.gioTot
                         .slice(0, 3)
@@ -871,7 +860,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <div className="text-[10px] tracking-[0.3em] text-[#0f0a08] font-semibold uppercase mb-1.5">
+      <div className="text-[10px] tracking-[0.3em] text-parchment/50 font-semibold uppercase mb-1.5">
         {label}
       </div>
       {children}
@@ -881,21 +870,21 @@ function Field({
 
 export default function NgayTotClient() {
   return (
-    <div className="relative text-[#0f0a08]">
+    <div className="relative">
       <section id="top" className="pt-12 pb-8 px-6 text-center">
         <Link
           href="/"
-          className="inline-block text-[11px] tracking-[0.3em] text-[#4a6c7a] hover:text-[#5a3a1a] uppercase"
+          className="inline-block text-[11px] tracking-[0.3em] text-gold/60 hover:text-gold uppercase transition"
         >
           ← Trang chủ
         </Link>
         <h1
-          className="mt-3 font-serif text-[#0f0a08] leading-[0.95] text-[clamp(48px,7vw,96px)]"
+          className="mt-3 font-serif text-parchment leading-[0.95] text-[clamp(48px,7vw,96px)]"
           style={{ fontFamily: SERIF_FONT }}
         >
-          Xem Ngày <em className="text-[#4a6c7a]">Tốt</em>
+          Xem Ngày <em className="text-gold">Tốt</em>
         </h1>
-        <p className="mt-4 max-w-xl mx-auto text-[#0f0a08]">
+        <p className="mt-4 max-w-xl mx-auto text-parchment/60">
           Lịch vạn niên — Đối chiếu hoàng đạo, hắc đạo, can chi tứ trụ và giờ
           tốt cho mọi việc trọng đại.
         </p>

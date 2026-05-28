@@ -20,6 +20,30 @@
 
 <!-- Entry mới thêm ở TRÊN cùng (mới nhất đầu tiên) -->
 
+**Date:** 2026-05-29
+**Module:** web (full UI palette pivot)
+**File:** apps/web/src/styles/tokens.ts, apps/web/tailwind.config.ts, apps/web/src/app/globals.css, ~45 component files across phases 01-08
+**Decision:** Pivot toàn site từ cream/đồng cổ warm-light design sang cosmic dark + gold metallic theme.
+**Reason:** (1) Design system consistency — cosmic dark + gold mystic (tokens.ts source of truth) thay vì manual color remap từ Figma mỗi phase. (2) Future-proof brand identity — parchment scroll sections remain scoped, không leak light-gray bg vào page. (3) Watermark identity (East/West tone subtle) giúp các section riêng biệt nhưng liên kết. (4) Performance — solid cosmic bg + gold accent đơn giản hơn complex gradient overlays, gold shimmer chỉ dùng khi cần highlight.
+**Rejected alternatives:**
+1. **Dark mode toggle** (cream + cosmic parallel) — double maintenance, FE branching logic. Fixed choice better.
+2. **Partial pages only** (home cosmic, tools cream) — inconsistent, user confusion navigating.
+3. **Gradual migration** (phase 1 home, phase 2 tools, v.v.) — fragmented UX. Clean pivot 1 shot tốt hơn.
+4. **Không update tokens.ts, chỉ tailwind hex** — tokens.ts là single source of truth cho inline style + server-side PDF; bỏ qua gây mismatch.
+
+Architecture:
+- **Source of truth:** `apps/web/src/styles/tokens.ts` define cosmic/gold palette constants. All color references pull từ đây, KHÔNG hardcode hex.
+- **Tailwind mapping:** `tailwind.config.ts` alias `brand-cosmic`, `brand-gold`, `brand-cream`, v.v. → hex từ tokens. Legacy `brand-purple` removed.
+- **Component primitives:** `GoldButton`, `MysticCard`, `ScrollFrame`, `GoldText`, `CosmicBg`, `ZodiacIcon` — mandatory pattern nếu component mới dùng gold/cosmic.
+- **Scoped parchment:** ONLY trong `ScrollFrame` layout (history scroll), KHÔNG page-bg. Header/footer/nav vẫn cosmic dark.
+- **Watermark subtle identity:** East tone (`mountain-500/10` overlay) trên astrology/zodiac, West tone (`vermilion/10`) trên warning/danger sections. Làm qua `before/after` pseudo-element, không thay image.
+
+Phases 01-08 đã migrate: home hero, hoangdao flow, tuvi sidebar, wallet topup, admin panel, lunar calendar, tarot casino ui, settings.
+
+**Migration safety:** Backup previous colors (cream → gold-light, `#5a3a1a` → gold-deep) nếu future pivot. Cache giữ nguyên (birthHash algo), chỉ UI thay đổi.
+
+---
+
 **Date:** 2026-05-18
 **Module:** web (realtime push)
 **File:** apps/web/src/lib/realtime-server.ts (mới), apps/web/src/lib/realtime-client.ts (mới), apps/web/src/components/providers/WalletRealtimeBridge.tsx (mới), apps/web/src/lib/wallet.ts, apps/web/src/auth.ts, apps/web/src/components/providers/AuthProvider.tsx, .env, apps/web/.env.local, apps/web/wrangler.jsonc

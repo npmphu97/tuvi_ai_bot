@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 };
 
 const CATEGORIES: BlogCategory[] = ['tu-vi', 'tarot', 'hoang-dao', 'tu-tru', 'ngay-tot'];
-
 const SERIF = "'Cormorant Garamond', serif";
 
 export default function BlogIndex({
@@ -48,12 +47,12 @@ export default function BlogIndex({
         <header className="flex items-start justify-between gap-4 mb-10">
           <div>
             <h1
-              className="text-4xl sm:text-5xl text-[#0f0a08] italic leading-none"
+              className="text-4xl sm:text-5xl text-parchment italic leading-none"
               style={{ fontFamily: SERIF }}
             >
-              Bài viết<span className="text-[#c89146]">.</span>
+              Bài viết<span className="text-gold">.</span>
             </h1>
-            <p className="mt-2 text-[13px] text-[#4a3a30]">
+            <p className="mt-2 text-[13px] text-parchment/50">
               {activeCat
                 ? `${CATEGORY_LABEL[activeCat]} · ${filtered.length} bài`
                 : `${posts.length} bài · Tử Vi · Tarot · Hoàng Đạo · Tứ Trụ · Ngày Tốt`}
@@ -62,7 +61,7 @@ export default function BlogIndex({
 
           <details className="relative group">
             <summary
-              className="list-none cursor-pointer h-10 w-10 rounded-full border border-[#c89146]/50 flex items-center justify-center text-[#5a3a1a] hover:bg-[#c89146]/15 transition select-none"
+              className="list-none cursor-pointer h-10 w-10 rounded-full border border-gold/40 flex items-center justify-center text-gold hover:bg-gold/10 transition select-none"
               aria-label="Lọc bài viết theo chủ đề"
             >
               <svg
@@ -79,13 +78,13 @@ export default function BlogIndex({
                 <line x1="10" y1="18" x2="14" y2="18" />
               </svg>
             </summary>
-            <div className="absolute right-0 mt-2 w-56 rounded-xl bg-[#fbf3e2] border border-[#c89146]/40 shadow-lg p-2 z-20">
+            <div className="absolute right-0 mt-2 w-56 rounded-xl bg-cosmic-panel border border-gold/30 shadow-cosmicLift p-2 z-20">
               <Link
                 href="/blog"
                 className={`block px-3 py-2 rounded-lg text-[13px] transition ${
                   !activeCat
-                    ? 'bg-[#5a3a1a] text-[#fbf3e2]'
-                    : 'text-[#0f0a08] hover:bg-[#c89146]/15'
+                    ? 'bg-gold text-cosmic-DEFAULT'
+                    : 'text-parchment hover:bg-gold/10'
                 }`}
               >
                 Tất cả · {posts.length}
@@ -99,8 +98,8 @@ export default function BlogIndex({
                     href={`/blog?cat=${cat}`}
                     className={`block px-3 py-2 rounded-lg text-[13px] transition ${
                       active
-                        ? 'bg-[#5a3a1a] text-[#fbf3e2]'
-                        : 'text-[#0f0a08] hover:bg-[#c89146]/15'
+                        ? 'bg-gold text-cosmic-DEFAULT'
+                        : 'text-parchment hover:bg-gold/10'
                     }`}
                   >
                     {CATEGORY_LABEL[cat]} · {count}
@@ -114,7 +113,7 @@ export default function BlogIndex({
         <ul className="space-y-5">
           {filtered.map((post) => (
             <li key={post.slug}>
-              <article className="bg-[#fbf3e2] rounded-2xl border border-[#c89146]/35 overflow-hidden shadow-sm hover:shadow-md hover:border-[#c89146]/70 transition flex flex-col sm:flex-row">
+              <article className="bg-cosmic-panel rounded-2xl border border-gold/25 overflow-hidden hover:border-gold/55 transition flex flex-col sm:flex-row">
                 <Link
                   href={`/blog/${post.slug}`}
                   className="relative shrink-0 h-44 sm:h-auto sm:w-52 overflow-hidden"
@@ -125,30 +124,30 @@ export default function BlogIndex({
                     alt=""
                     fill
                     sizes="(max-width: 640px) 100vw, 208px"
-                    className="object-cover"
+                    className="object-cover brightness-75"
                   />
-                  <span className="absolute bottom-2 left-2 text-[10px] uppercase tracking-[0.18em] text-[#fbf3e2] bg-[#0f0a08]/55 backdrop-blur px-2 py-0.5 rounded-full">
+                  <span className="absolute bottom-2 left-2 text-[10px] uppercase tracking-[0.18em] text-parchment bg-cosmic-DEFAULT/70 backdrop-blur px-2 py-0.5 rounded-full">
                     {CATEGORY_LABEL[post.category]}
                   </span>
                 </Link>
 
                 <div className="p-5 sm:p-6 flex-1 flex flex-col">
                   <Link href={`/blog/${post.slug}`} className="group">
-                    <h2 className="text-[18px] sm:text-[20px] font-semibold text-[#0f0a08] leading-snug group-hover:text-[#5a3a1a] transition">
+                    <h2 className="text-[18px] sm:text-[20px] font-semibold text-parchment leading-snug group-hover:text-gold transition">
                       {post.title}
                     </h2>
                   </Link>
-                  <p className="mt-2 text-[13.5px] text-[#4a3a30] leading-relaxed line-clamp-2 sm:line-clamp-3">
+                  <p className="mt-2 text-[13.5px] text-parchment/55 leading-relaxed line-clamp-2 sm:line-clamp-3">
                     {post.description}
                   </p>
                   <div className="mt-auto pt-4 flex items-center gap-3">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center px-4 py-1.5 rounded-full border border-[#5a3a1a]/60 text-[12.5px] text-[#5a3a1a] hover:bg-[#5a3a1a] hover:text-[#fbf3e2] transition"
+                      className="inline-flex items-center px-4 py-1.5 rounded-full border border-gold/40 text-[12.5px] text-gold hover:bg-gold hover:text-cosmic-DEFAULT transition"
                     >
                       Đọc tiếp
                     </Link>
-                    <span className="text-[12px] text-[#4a3a30]/70">
+                    <span className="text-[12px] text-parchment/40">
                       {post.readingMinutes} phút đọc
                     </span>
                   </div>
@@ -159,7 +158,7 @@ export default function BlogIndex({
         </ul>
 
         {filtered.length === 0 && (
-          <p className="text-center text-[14px] text-[#4a3a30] py-12">
+          <p className="text-center text-[14px] text-parchment/40 py-12">
             Chưa có bài viết nào trong chủ đề này.
           </p>
         )}

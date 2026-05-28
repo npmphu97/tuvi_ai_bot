@@ -61,26 +61,26 @@ export default function Pagination({
         isPending ? 'opacity-60 pointer-events-none' : ''
       }`}
     >
-      <div className="text-[#4a3a30]">
+      <div className="text-[#b8a47c]">
         {total === 0 ? (
           'Không có dòng nào.'
         ) : (
           <>
-            <strong className="text-[#5a3a1a] tabular-nums">{startIdx}</strong>
+            <strong className="text-[#c89146] tabular-nums">{startIdx}</strong>
             {' – '}
-            <strong className="text-[#5a3a1a] tabular-nums">{endIdx}</strong>{' '}
-            trong tổng <strong className="text-[#5a3a1a] tabular-nums">{total}</strong>
+            <strong className="text-[#c89146] tabular-nums">{endIdx}</strong>{' '}
+            trong tổng <strong className="text-[#c89146] tabular-nums">{total}</strong>
           </>
         )}
       </div>
 
       <div className="flex items-center gap-3 flex-wrap">
-        <label className="inline-flex items-center gap-1.5 text-[#4a3a30]">
+        <label className="inline-flex items-center gap-1.5 text-[#b8a47c]">
           <span className="text-[11px] tracking-[0.2em] uppercase">Hàng/trang</span>
           <select
             value={pageSize}
             onChange={(e) => setSize(Number(e.target.value))}
-            className="h-8 px-2 rounded-full border border-[#4a6c7a]/35 bg-[#fbf3e2] text-[12.5px] focus:outline-none focus:border-[#4a6c7a]"
+            className="h-8 px-2 rounded-full border border-[#c89146]/30 bg-[#14121a] text-[#f4ecd6] text-[12.5px] focus:outline-none focus:border-[#c89146]"
           >
             {pageSizeOptions.map((s) => (
               <option key={s} value={s}>
@@ -100,7 +100,7 @@ export default function Pagination({
 
           {pageNumbers.map((n, i) =>
             n === '…' ? (
-              <span key={`gap-${i}`} className="px-2 text-[#4a3a30] tabular-nums">
+              <span key={`gap-${i}`} className="px-2 text-[#b8a47c] tabular-nums">
                 …
               </span>
             ) : (
@@ -155,9 +155,9 @@ function PageButton({
       title={title}
       className={`min-w-[32px] h-8 px-2.5 rounded-full text-[12.5px] font-semibold tabular-nums transition border ${
         active
-          ? 'bg-[#5a3a1a] text-[#fbf3e2] border-[#5a3a1a]'
-          : 'bg-[#fbf3e2] text-[#0f0a08] border-[#4a6c7a]/35 hover:border-[#4a6c7a] hover:bg-[#f5e3c0]/60'
-      } disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#4a6c7a]/35 disabled:hover:bg-[#fbf3e2]`}
+          ? 'bg-gold-metal text-[#05060a] border-transparent'
+          : 'bg-[#14121a] text-[#f4ecd6] border-[#c89146]/30 hover:border-[#c89146]/60 hover:bg-[#1c1a24]'
+      } disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-[#c89146]/30 disabled:hover:bg-[#14121a]`}
     >
       {children}
     </button>

@@ -41,13 +41,7 @@ export default function BankConfigClient({ initial }: { initial: BankConfig | nu
       const res = await fetch('/api/admin/bank-config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          bankName,
-          accountNumber,
-          accountHolder,
-          qrImageUrl,
-          refPrefix,
-        }),
+        body: JSON.stringify({ bankName, accountNumber, accountHolder, qrImageUrl, refPrefix }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
@@ -60,11 +54,10 @@ export default function BankConfigClient({ initial }: { initial: BankConfig | nu
   };
 
   return (
-    <div className="rounded-3xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/95 p-5 md:p-7">
-      <h2 className="text-xl font-semibold mb-1">Cấu hình ngân hàng</h2>
-      <p className="text-[13px] text-[#4a3a30] mb-5">
-        Thông tin này hiển thị cho user ở trang ví. Upload ảnh QR (PNG/JPG &lt;
-        500KB).
+    <div className="rounded-3xl border border-gold/25 bg-cosmic-panel p-5 md:p-7">
+      <h2 className="text-xl font-semibold mb-1 text-parchment">Cấu hình ngân hàng</h2>
+      <p className="text-[13px] text-parchment/50 mb-5">
+        Thông tin này hiển thị cho user ở trang ví. Upload ảnh QR (PNG/JPG &lt; 500KB).
       </p>
 
       <div className="grid md:grid-cols-[200px_1fr] gap-6">
@@ -74,14 +67,14 @@ export default function BankConfigClient({ initial }: { initial: BankConfig | nu
             <img
               src={qrImageUrl}
               alt="QR"
-              className="w-48 h-48 rounded-xl border border-[#4a6c7a]/30 bg-white p-2 object-contain"
+              className="w-48 h-48 rounded-xl border border-gold/25 bg-white p-2 object-contain"
             />
           ) : (
-            <div className="w-48 h-48 rounded-xl border-2 border-dashed border-[#c89146]/55 flex items-center justify-center text-[12px] text-[#4a3a30]">
+            <div className="w-48 h-48 rounded-xl border-2 border-dashed border-gold/35 flex items-center justify-center text-[12px] text-parchment/40">
               Chưa có QR
             </div>
           )}
-          <label className="mt-2 inline-block px-4 py-2 rounded-full bg-[#5a3a1a] text-[#fbf3e2] text-[12px] cursor-pointer hover:bg-[#4a6c7a]">
+          <label className="mt-2 inline-block px-4 py-2 rounded-full bg-gradient-to-r from-gold-deep to-gold text-cosmic-DEFAULT text-[12px] cursor-pointer hover:brightness-110 transition">
             {uploading ? 'Đang upload…' : 'Upload QR'}
             <input
               type="file"
@@ -98,24 +91,9 @@ export default function BankConfigClient({ initial }: { initial: BankConfig | nu
 
         <div className="space-y-3">
           <Field label="Tên ngân hàng" value={bankName} onChange={setBankName} placeholder="VD: Vietcombank" />
-          <Field
-            label="Số tài khoản"
-            value={accountNumber}
-            onChange={setAccountNumber}
-            placeholder="VD: 0123456789"
-          />
-          <Field
-            label="Chủ tài khoản"
-            value={accountHolder}
-            onChange={setAccountHolder}
-            placeholder="VD: NGUYEN VAN A"
-          />
-          <Field
-            label="URL QR (nếu có sẵn)"
-            value={qrImageUrl}
-            onChange={setQrImageUrl}
-            placeholder="https://... hoặc upload bên trái"
-          />
+          <Field label="Số tài khoản" value={accountNumber} onChange={setAccountNumber} placeholder="VD: 0123456789" />
+          <Field label="Chủ tài khoản" value={accountHolder} onChange={setAccountHolder} placeholder="VD: NGUYEN VAN A" />
+          <Field label="URL QR (nếu có sẵn)" value={qrImageUrl} onChange={setQrImageUrl} placeholder="https://... hoặc upload bên trái" />
           <Field
             label="Prefix mã chuyển khoản"
             value={refPrefix}
@@ -127,8 +105,8 @@ export default function BankConfigClient({ initial }: { initial: BankConfig | nu
             <div
               className={`rounded-xl px-3 py-2 text-[13px] ${
                 msg.type === 'ok'
-                  ? 'border border-[#3a8a5e]/40 bg-[#3a8a5e]/10 text-[#2a6e48]'
-                  : 'border border-[#c8361d]/40 bg-[#c8361d]/10 text-[#c8361d]'
+                  ? 'border border-[#3a8a5e]/40 bg-[#3a8a5e]/10 text-[#3a8a5e]'
+                  : 'border border-brand-vermilion/40 bg-brand-vermilion/10 text-brand-vermilion'
               }`}
             >
               {msg.type === 'ok' ? '✓' : '⚠'} {msg.text}
@@ -140,7 +118,7 @@ export default function BankConfigClient({ initial }: { initial: BankConfig | nu
               type="button"
               onClick={save}
               disabled={saving}
-              className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#5a3a1a] to-[#c89146] text-[#fbf3e2] font-semibold disabled:opacity-50"
+              className="px-6 py-2.5 rounded-full bg-gradient-to-r from-gold-deep to-gold text-cosmic-DEFAULT font-semibold hover:brightness-110 disabled:opacity-50 transition"
             >
               {saving ? 'Đang lưu…' : 'Lưu cấu hình'}
             </button>
@@ -164,14 +142,14 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-[11px] tracking-[0.2em] uppercase text-[#4a3a30] font-semibold mb-1">
+      <label className="block text-[11px] tracking-[0.2em] uppercase text-parchment/50 font-semibold mb-1">
         {label}
       </label>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-11 px-4 rounded-2xl border border-[#4a6c7a]/35 bg-[#fbf3e2] text-[14px] focus:outline-none focus:border-[#4a6c7a]"
+        className="w-full h-11 px-4 rounded-2xl border border-gold/20 bg-cosmic-raised text-parchment text-[14px] placeholder:text-parchment/30 focus:outline-none focus:border-gold/50 transition"
       />
     </div>
   );

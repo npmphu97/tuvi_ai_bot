@@ -19,25 +19,25 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (session.user.role !== 'admin') redirect('/');
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 py-8 text-[#0f0a08]">
+    <div className="min-h-screen px-4 sm:px-6 py-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <h1
-            className="text-3xl md:text-4xl font-serif italic text-[#0f0a08]"
+            className="text-3xl md:text-4xl font-serif italic text-gold"
             style={{ fontFamily: SERIF_FONT }}
           >
             Quản trị viên
           </h1>
-          <span className="px-3 py-1 rounded-full bg-[#c8361d] text-[#fbf3e2] text-[10px] tracking-[0.2em] font-bold uppercase">
+          <span className="px-3 py-1 rounded-full bg-brand-vermilion text-parchment text-[10px] tracking-[0.2em] font-bold uppercase">
             Admin Mode
           </span>
         </div>
-        <nav className="mb-6 flex gap-2 overflow-x-auto rounded-2xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/95 p-1.5">
+        <nav className="mb-6 flex gap-2 overflow-x-auto rounded-2xl border border-gold/25 bg-cosmic-panel p-1.5">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex-1 min-w-[140px] text-center px-4 py-2.5 rounded-xl text-[13.5px] font-semibold hover:bg-[#fbf3e2] transition"
+              className="flex-1 min-w-[140px] text-center px-4 py-2.5 rounded-xl text-[13.5px] font-semibold text-parchment/80 hover:bg-cosmic-raised hover:text-gold transition"
             >
               <span className="mr-1.5">{item.icon}</span>
               {item.label}

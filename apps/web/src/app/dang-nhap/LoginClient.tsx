@@ -3,8 +3,6 @@
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
-const SERIF_FONT = "'Cormorant Garamond',serif";
-
 export default function LoginClient({
   callbackUrl,
   hasGoogle,
@@ -22,7 +20,7 @@ export default function LoginClient({
   return (
     <>
       {errorParam && (
-        <div className="rounded-xl border border-[#c8361d]/40 bg-[#c8361d]/10 px-4 py-3 mb-5 text-[#c8361d] text-[13.5px]">
+        <div className="rounded-xl border border-brand-vermilion/40 bg-brand-vermilion/10 px-4 py-3 mb-5 text-brand-vermilion text-[13.5px]">
           ⚠ Đăng nhập thất bại: {errorParam}
         </div>
       )}
@@ -36,7 +34,7 @@ export default function LoginClient({
               setBusy('google');
               signIn('google', { callbackUrl });
             }}
-            className="w-full h-12 rounded-full border-2 border-[#4a6c7a]/40 bg-[#fbf3e2] hover:bg-[#f5e3c0] flex items-center justify-center gap-3 transition disabled:opacity-60"
+            className="w-full h-12 rounded-full border-2 border-gold/30 bg-cosmic-raised hover:bg-cosmic-veil flex items-center justify-center gap-3 transition disabled:opacity-60"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
               <path
@@ -56,7 +54,7 @@ export default function LoginClient({
                 d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58A9 9 0 009 0 9 9 0 00.96 4.96l3 2.33C4.67 5.16 6.66 3.58 9 3.58z"
               />
             </svg>
-            <span className="text-[14px] font-semibold text-[#0f0a08]">
+            <span className="text-[14px] font-semibold text-parchment">
               {busy === 'google' ? 'Đang chuyển hướng…' : 'Đăng nhập với Google'}
             </span>
           </button>
@@ -66,8 +64,8 @@ export default function LoginClient({
           <>
             {hasGoogle && (
               <div className="relative my-2 text-center">
-                <div className="absolute left-0 right-0 top-1/2 border-t border-[#4a6c7a]/25" />
-                <span className="relative bg-[#fbf3e2] px-3 text-[11px] tracking-[0.25em] uppercase text-[#4a3a30]">
+                <div className="absolute left-0 right-0 top-1/2 border-t border-gold/20" />
+                <span className="relative bg-cosmic-panel px-3 text-[11px] tracking-[0.25em] uppercase text-parchment/50">
                   hoặc
                 </span>
               </div>
@@ -87,12 +85,12 @@ export default function LoginClient({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@cua-ban.com"
                 disabled={busy !== null}
-                className="w-full h-12 px-4 rounded-2xl border border-[#4a6c7a]/35 bg-[#fbf3e2] text-[#0f0a08] placeholder:text-[#7a6a52] focus:outline-none focus:border-[#4a6c7a] focus:ring-2 focus:ring-[#4a6c7a]/15"
+                className="w-full h-12 px-4 rounded-2xl border border-gold/25 bg-cosmic-raised text-parchment placeholder:text-parchment/35 focus:outline-none focus:border-gold/60 focus:ring-2 focus:ring-gold/15 transition"
               />
               <button
                 type="submit"
                 disabled={busy !== null}
-                className="w-full h-12 rounded-full bg-gradient-to-r from-[#5a3a1a] via-[#7a4a1f] to-[#c89146] text-[#fbf3e2] font-semibold tracking-wide hover:from-[#4a6c7a] hover:via-[#8a5520] hover:to-[#d4a05a] transition disabled:opacity-60"
+                className="w-full h-12 rounded-full bg-gradient-to-r from-gold-deep via-gold to-gold-light text-cosmic-DEFAULT font-semibold tracking-wide hover:brightness-110 transition disabled:opacity-60"
               >
                 {busy === 'email' ? 'Đang gửi…' : 'Gửi link đăng nhập'}
               </button>
@@ -101,11 +99,11 @@ export default function LoginClient({
         )}
 
         {!hasGoogle && !hasEmail && (
-          <div className="rounded-xl border border-[#c89146]/45 bg-[#f5e3c0]/40 px-4 py-3 text-[#5a3a1a] text-[13.5px]">
+          <div className="rounded-xl border border-gold/30 bg-cosmic-raised px-4 py-3 text-parchment/70 text-[13.5px]">
             ⚠ Chưa cấu hình provider. Cần set{' '}
-            <code className="font-mono">GOOGLE_CLIENT_ID</code> hoặc{' '}
-            <code className="font-mono">EMAIL_SERVER_HOST</code> trong{' '}
-            <code className="font-mono">.env</code>.
+            <code className="font-mono text-gold">GOOGLE_CLIENT_ID</code> hoặc{' '}
+            <code className="font-mono text-gold">EMAIL_SERVER_HOST</code> trong{' '}
+            <code className="font-mono text-gold">.env</code>.
           </div>
         )}
       </div>

@@ -196,20 +196,20 @@ export default function UsersClient({
   };
 
   return (
-    <div className="rounded-3xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/95 p-5 md:p-7">
+    <div className="rounded-3xl border border-gold/25 bg-cosmic-panel p-5 md:p-7">
       <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
-        <h2 className="text-xl font-semibold text-[#0f0a08]">
-          Người dùng <span className="text-[#4a3a30] font-normal text-[14px]">({total})</span>
+        <h2 className="text-xl font-semibold text-parchment">
+          Người dùng <span className="text-parchment/50 font-normal text-[14px]">({total})</span>
         </h2>
         <div className="relative w-72 max-w-full">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Tìm theo email / tên / id"
-            className="h-10 w-full pl-4 pr-9 rounded-full border border-[#4a6c7a]/35 bg-[#fbf3e2] text-[13px] focus:outline-none focus:border-[#4a6c7a]"
+            className="h-10 w-full pl-4 pr-9 rounded-full border border-gold/20 bg-cosmic-raised text-parchment text-[13px] placeholder:text-parchment/30 focus:outline-none focus:border-gold/50 transition"
           />
           {isPending && (
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#c89146] animate-pulse" />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gold animate-pulse" />
           )}
         </div>
       </div>
@@ -217,7 +217,7 @@ export default function UsersClient({
       <div className={`overflow-x-auto transition-opacity ${isPending ? 'opacity-60' : ''}`}>
         <table className="w-full text-[13.5px]">
           <thead>
-            <tr className="border-b border-[#4a6c7a]/30 text-left text-[#4a3a30] uppercase tracking-[0.15em] text-[10px]">
+            <tr className="border-b border-gold/15 text-left text-parchment/40 uppercase tracking-[0.15em] text-[10px]">
               <th className="py-2 pr-3">User</th>
               <th className="py-2 pr-3">Email</th>
               <th className="py-2 pr-3">Role</th>
@@ -228,21 +228,21 @@ export default function UsersClient({
           </thead>
           <tbody>
             {usersList.map((u) => (
-              <tr key={u.id} className="border-b border-[#4a6c7a]/15 hover:bg-[#fbf3e2]/60">
+              <tr key={u.id} className="border-b border-gold/10 hover:bg-cosmic-raised/50 transition">
                 <td className="py-2.5 pr-3">
                   <div className="flex items-center gap-2 min-w-0">
                     {u.image ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={u.image} alt="" referrerPolicy="no-referrer" className="w-7 h-7 rounded-full object-cover" />
                     ) : (
-                      <span className="w-7 h-7 rounded-full bg-[#5a3a1a] text-[#fbf3e2] flex items-center justify-center text-[11px] font-semibold">
+                      <span className="w-7 h-7 rounded-full bg-gold-deep text-parchment flex items-center justify-center text-[11px] font-semibold">
                         {(u.name ?? u.email).charAt(0).toUpperCase()}
                       </span>
                     )}
-                    <span className="font-medium text-[#0f0a08] truncate">{u.name ?? '—'}</span>
+                    <span className="font-medium text-parchment truncate">{u.name ?? '—'}</span>
                   </div>
                 </td>
-                <td className="py-2.5 pr-3 text-[#4a3a30]">{u.email}</td>
+                <td className="py-2.5 pr-3 text-parchment/50">{u.email}</td>
                 <td className="py-2.5 pr-3">
                   <button
                     type="button"
@@ -257,8 +257,8 @@ export default function UsersClient({
                     }
                     className={`px-2 py-0.5 rounded-full text-[10px] tracking-wider font-bold uppercase transition disabled:cursor-not-allowed ${
                       u.role === 'admin'
-                        ? 'bg-[#c8361d] text-[#fbf3e2] hover:bg-[#a52a16]'
-                        : 'bg-[#fbf3e2] text-[#4a3a30] border border-[#4a6c7a]/40 hover:bg-[#f5e3c0]'
+                        ? 'bg-brand-vermilion text-parchment hover:bg-[#a52a16]'
+                        : 'bg-cosmic-raised text-parchment/60 border border-gold/25 hover:border-gold/50'
                     } ${busyRole === u.id ? 'opacity-50' : ''}`}
                   >
                     {busyRole === u.id ? '…' : u.role}
@@ -286,7 +286,7 @@ export default function UsersClient({
                         setCreditNote('');
                         setError(null);
                       }}
-                      className="px-3 py-1.5 rounded-full bg-[#3a8a5e] text-[#fbf3e2] text-[12px] hover:bg-[#2a6e48] transition"
+                      className="px-3 py-1.5 rounded-full bg-[#3a8a5e] text-parchment text-[12px] hover:bg-[#2a6e48] transition"
                     >
                       Cộng tiền
                     </button>
@@ -310,7 +310,7 @@ export default function UsersClient({
             ))}
             {usersList.length === 0 && (
               <tr>
-                <td colSpan={6} className="py-8 text-center text-[#4a3a30] italic">
+                <td colSpan={6} className="py-8 text-center text-parchment/40 italic">
                   {searchQuery ? `Không có user nào khớp "${searchQuery}".` : 'Không có user nào.'}
                 </td>
               </tr>
@@ -391,16 +391,16 @@ function BalanceModal({
       onClick={() => !busy && onCancel()}
     >
       <div
-        className="w-full max-w-md rounded-3xl border border-[#4a6c7a]/55 bg-[#fbf3e2] p-6 shadow-2xl"
+        className="w-full max-w-md rounded-3xl border border-gold/30 bg-cosmic-panel p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="text-lg font-semibold mb-1">{title}</h3>
-        <p className="text-[12.5px] text-[#4a3a30] mb-4">
-          User: <strong>{user.email}</strong> · Số dư hiện tại:{' '}
-          <strong className="text-[#5a3a1a]">{formatVnd(user.balanceVnd)}</strong>
+        <h3 className="text-lg font-semibold mb-1 text-parchment">{title}</h3>
+        <p className="text-[12.5px] text-parchment/50 mb-4">
+          User: <strong className="text-parchment">{user.email}</strong> · Số dư hiện tại:{' '}
+          <strong className="text-gold">{formatVnd(user.balanceVnd)}</strong>
         </p>
 
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-[#4a3a30] font-semibold mb-1">
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-parchment/50 font-semibold mb-1">
           Số tiền (VND)
         </label>
         <div className="grid grid-cols-5 gap-2 mb-2">
@@ -409,10 +409,10 @@ function BalanceModal({
               key={a}
               type="button"
               onClick={() => setAmount(String(a))}
-              className={`py-1.5 rounded-lg text-[11px] font-semibold border ${
+              className={`py-1.5 rounded-lg text-[11px] font-semibold border transition ${
                 Number(amount) === a
-                  ? 'border-[#5a3a1a] bg-[#f5e3c0] text-[#5a3a1a]'
-                  : 'border-[#4a6c7a]/30 bg-[#fbf3e2] text-[#0f0a08] hover:border-[#4a6c7a]/55'
+                  ? 'border-gold bg-gold/20 text-gold'
+                  : 'border-gold/20 bg-cosmic-raised text-parchment/60 hover:border-gold/40'
               }`}
             >
               {a / 1000}k
@@ -423,23 +423,23 @@ function BalanceModal({
           value={amount}
           onChange={(e) => setAmount(e.target.value.replace(/\D/g, ''))}
           placeholder="Số tiền"
-          className="w-full h-11 px-4 rounded-2xl border border-[#4a6c7a]/35 bg-[#fbf3e2] font-mono text-lg focus:outline-none focus:border-[#4a6c7a]"
+          className="w-full h-11 px-4 rounded-2xl border border-gold/20 bg-cosmic-raised text-parchment font-mono text-lg placeholder:text-parchment/30 focus:outline-none focus:border-gold/50 transition"
         />
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-[#4a3a30] font-semibold mt-3 mb-1">
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-parchment/50 font-semibold mt-3 mb-1">
           Ghi chú (tuỳ chọn)
         </label>
         <input
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="VD: Tặng khách VIP / Hoàn lỗi sai admin..."
-          className="w-full h-11 px-4 rounded-2xl border border-[#4a6c7a]/35 bg-[#fbf3e2] focus:outline-none focus:border-[#4a6c7a]"
+          className="w-full h-11 px-4 rounded-2xl border border-gold/20 bg-cosmic-raised text-parchment placeholder:text-parchment/30 focus:outline-none focus:border-gold/50 transition"
         />
         {error && (
-          <div className="mt-3 rounded-xl border border-[#c8361d]/40 bg-[#c8361d]/10 px-3 py-2 text-[#c8361d] text-[13px]">
+          <div className="mt-3 rounded-xl border border-brand-vermilion/40 bg-brand-vermilion/10 px-3 py-2 text-brand-vermilion text-[13px]">
             ⚠ {error}
           </div>
         )}
-        <p className="mt-3 text-[12px] text-[#4a3a30]">
+        <p className="mt-3 text-[12px] text-parchment/40">
           Thay đổi áp dụng realtime qua SSE. Ghi vào ledger transactions.
         </p>
         <div className="mt-4 flex gap-2 justify-end">
@@ -447,7 +447,7 @@ function BalanceModal({
             type="button"
             onClick={onCancel}
             disabled={busy}
-            className="px-4 py-2 rounded-full border border-[#4a6c7a]/40 hover:bg-[#fbf3e2]/60 text-[13px]"
+            className="px-4 py-2 rounded-full border border-gold/25 text-parchment/60 hover:border-gold/50 hover:text-parchment text-[13px] transition"
           >
             Huỷ
           </button>
@@ -455,7 +455,7 @@ function BalanceModal({
             type="button"
             onClick={onSubmit}
             disabled={busy}
-            className={`px-5 py-2 rounded-full bg-gradient-to-r ${submitColor} text-[#fbf3e2] text-[13px] font-semibold disabled:opacity-50`}
+            className={`px-5 py-2 rounded-full bg-gradient-to-r ${submitColor} text-parchment text-[13px] font-semibold disabled:opacity-50`}
           >
             {busy ? 'Đang xử lý…' : submitLabel}
           </button>

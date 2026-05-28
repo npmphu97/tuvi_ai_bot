@@ -83,6 +83,43 @@ Charge flow (lập lá số):
 
 402 INSUFFICIENT_BALANCE: FE hiển thị banner + link `/vi-cua-toi`.
 
+## Frontend (web) — Dark Cosmic + Gold Metallic theme
+
+**Next.js version:** 14 App Router + SSR, TailwindCSS.
+
+**Design system (2026-05-28 pivot):**
+- **Palette:** Dark cosmic + gold metallic (tokens.ts source of truth).
+- **Page background:** Cosmic dark solid (`#05060a`) or cosmic dark gradient (`from-[#05060a] via-[#0b0d14] to-[#14121a]`).
+- **Accents:** Gold metallic (`#c89146` default, `#f4d57a` shine, `#8a5a1f` deep) for borders, buttons, highlights.
+- **Text:** Cream (`#f4ecd6`) on dark, parchment text (`#3a2410`) ONLY in scoped scroll frame.
+- **Secondary accents:** Mountain (`#4a6c7a`) East tone, Vermilion (`#c8361d`) West tone for watermark identity.
+- **NO light gray / pure white page bg** — cosmic dark is default, parchment ONLY in ScrollFrame scoped sections.
+
+**Design primitives (mandatory usage):**
+- `GoldButton` — button with gold border + cream text + cosmic bg, hover → gold bg + cosmic text.
+- `MysticCard` — card cosmic bg + veil border with raised element inside (use `bg-[#14121a]` + `border-[#c89146]`).
+- `ScrollFrame` — parchment scoped bg ONLY for history/reflection sections (not page), cream gradient stop (use `bg-[#e9d4b6]` scoped, `text-[#3a2410]`).
+- `GoldText` — heading or inline text with gold accent, typically `text-[#f4ecd6]` + `text-[#c89146]` for emphasis.
+- `CosmicBg` — page/section background cosmic solid or gradient (use `bg-[#05060a]` or `from-[#05060a]` gradient).
+- `ZodiacIcon` — 12 zodiac icons rendered gold metallic with cosmic shadow (typically `fill-[#c89146]` + `drop-shadow-lg` cosmic color).
+
+**transpilePackages:** Bắt buộc list mọi `@tuvi/*` package mà web import (hiện: `@tuvi/core`, `@tuvi/lichvannien`). Thêm package mới vào graph → thêm vào `next.config.js`.
+
+**Font:** Toàn bộ web dùng **SF Pro Display** (load qua `@import 'https://fonts.cdnfonts.com/css/sf-pro-display'` trong `globals.css`). Tailwind config map cả `sans` lẫn `serif` → SF Pro Display, nên các heading đang dùng `font-serif` vẫn render SF Pro (phân biệt bằng `font-weight`/`text-size` thôi, không phải bằng family). Fallback stack: `-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", system-ui, sans-serif` — máy Apple dùng SF native, Windows/Android dùng CDN woff2.
+
+**PDF fonts KHÔNG đổi:** `@tuvi/pdf` vẫn dùng Noto Sans TTF (Regular/Bold/Italic) vì PDFKit cần TTF + Noto Sans render tốt dấu tiếng Việt trong file output. Đừng thay SF Pro vào PDF.
+
+**Toast notification:**
+Hệ thống toast custom ở `apps/web/src/components/ui/toast.tsx` (singleton emitter, không phụ thuộc package nào). Import `{ toast }` từ đó, gọi `toast.success(msg)` / `toast.error(msg)` / `toast.info(msg)`. `<Toaster />` mount sẵn trong root layout.
+
+**Khi nào fire toast:**
+- **Submit form** (POST `/api/*/submit`, topup-request, admin actions, v.v.): success → `toast.success('Đã ...')`, error → `toast.error('Thất bại: ...')`. Mục đích cho user feedback ngay khi action hoàn tất, không phải đợi hết flow.
+- **Async background fetch** (AI analyze, deep readings, dữ liệu phụ load sau): success → `toast.success('... xong')`, error → `toast.error('Lỗi ...')`. Đặc biệt quan trọng với AI vì user không biết khi nào xong.
+- **KHÔNG dùng `toast.info`** cho việc thông thường — nó dễ thành noise. Chỉ dùng khi có thông báo trung tính cần user biết (vd: "Bạn vừa logout do hết session").
+
+**Toast message rule:**
+Báo **kết quả thực sự**, không expose internal state. Không phân biệt cache hit / cache miss trong message — đối với user, cả 2 đều là "luận giải xong". Ví dụ: dùng `'Luận giải Tử Vi xong'` thay vì `cached ? 'Đã có sẵn...' : 'Luận giải xong'`. Backend trả `cached: true/false` cứ trả (debug + analytics), nhưng FE đừng leak ra UI text. Nguyên tắc: user không cần biết tech detail của hệ thống cache.
+
 ## Canonical data flow
 
 ```

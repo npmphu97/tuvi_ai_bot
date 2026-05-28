@@ -67,47 +67,47 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         ])}
       />
       <main className="max-w-3xl mx-auto px-6 py-12">
-        <nav className="text-[12px] text-[#5a3a1a] mb-6" aria-label="Breadcrumb">
-          <Link href="/" className="hover:underline">Trang chủ</Link>
-          <span className="mx-2 text-[#c89146]">/</span>
-          <Link href="/blog" className="hover:underline">Blog</Link>
-          <span className="mx-2 text-[#c89146]">/</span>
-          <Link href={`/blog#cat-${post.category}`} className="hover:underline">
+        <nav className="text-[12px] text-gold/70 mb-6" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-gold transition">Trang chủ</Link>
+          <span className="mx-2 text-gold/40">/</span>
+          <Link href="/blog" className="hover:text-gold transition">Blog</Link>
+          <span className="mx-2 text-gold/40">/</span>
+          <Link href={`/blog#cat-${post.category}`} className="hover:text-gold transition">
             {CATEGORY_LABEL[post.category]}
           </Link>
         </nav>
 
         <header className="mb-10">
-          <p className="text-[11px] tracking-[0.22em] uppercase text-[#5a3a1a]">
+          <p className="text-[11px] tracking-[0.22em] uppercase text-gold/60">
             {CATEGORY_LABEL[post.category]} · {publishedDate} · {post.readingMinutes} phút đọc
           </p>
-          <h1 className="mt-3 text-3xl md:text-4xl font-semibold text-[#0f0a08] leading-tight">
+          <h1 className="mt-3 text-3xl md:text-4xl font-semibold text-parchment leading-tight">
             {post.title}
           </h1>
-          <p className="mt-4 text-[15.5px] text-[#4a3a30] leading-relaxed">
+          <p className="mt-4 text-[15.5px] text-parchment/60 leading-relaxed">
             {post.description}
           </p>
         </header>
 
         <article
-          className="blog-prose text-[#0f0a08] leading-[1.85] text-[16px]"
+          className="blog-prose text-parchment/85 leading-[1.85] text-[16px]"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
 
         {related.length > 0 && (
-          <aside className="mt-14 pt-8 border-t border-[#c89146]/35">
-            <h2 className="text-lg font-semibold text-[#5a3a1a] mb-4">Bài viết liên quan</h2>
+          <aside className="mt-14 pt-8 border-t border-gold/25">
+            <h2 className="text-lg font-semibold text-gold mb-4">Bài viết liên quan</h2>
             <ul className="grid md:grid-cols-3 gap-4">
               {related.map((r) => (
                 <li key={r.slug}>
                   <Link
                     href={`/blog/${r.slug}`}
-                    className="block p-4 rounded-lg bg-[#fbf3e2] border border-[#c89146]/40 hover:border-[#5a3a1a] transition"
+                    className="block p-4 rounded-lg bg-cosmic-panel border border-gold/25 hover:border-gold/55 transition"
                   >
-                    <p className="text-[11px] uppercase tracking-[0.18em] text-[#5a3a1a]/80">
+                    <p className="text-[11px] uppercase tracking-[0.18em] text-gold/60">
                       {CATEGORY_LABEL[r.category]}
                     </p>
-                    <p className="mt-1 font-medium text-[14px] text-[#0f0a08] line-clamp-3">
+                    <p className="mt-1 font-medium text-[14px] text-parchment line-clamp-3">
                       {r.title}
                     </p>
                   </Link>

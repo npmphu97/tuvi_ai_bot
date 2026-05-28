@@ -1,0 +1,36 @@
+/* Dark-cosmic overrides for react-iztro when rendered on dark bg.
+   Extends iztrolabe-overrides.css (brand palette) with deeper bg. */
+.iztro-astrolabe-theme-default {
+  --iztro-color-border: rgba(212, 175, 55, 0.35);
+}
+
+/* Palace bg: dark cosmic-raised, gold border */
+.iztro-palace {
+  background-color: rgba(20, 18, 26, 0.95) !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
+  color: #e9d4b6;
+}
+
+/* Override focus states to stay dark */
+.iztro-palace,
+.iztro-palace.focused-palace,
+.iztro-palace.opposite-palace,
+.iztro-palace.surrounded-palace {
+  background-color: rgba(20, 18, 26, 0.95) !important;
+}
+
+/* Text colors on dark bg */
+.iztro-palace-name,
+.iztro-palace-gz {
+  color: #e9d4b6;
+}
+
+/* Major stars — gold-light */
+.iztro-star-name {
+  color: #e9d4b6;
+}
+
+/* Overall astrolabe bg */
+.iztro-astrolabe {
+  background: transparent;
+}

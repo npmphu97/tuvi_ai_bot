@@ -51,7 +51,6 @@ export default function WalletClient({
   const [history, setHistory] = useState<Tx[]>([]);
   const [historyTotal, setHistoryTotal] = useState(0);
 
-  // Pagination từ URL — page/size search params. Default page=1, size=10.
   const page = Math.max(1, parseInt(params.get('page') ?? '1') || 1);
   const size = clamp(parseInt(params.get('size') ?? '10') || 10, 10, 100);
 
@@ -78,8 +77,6 @@ export default function WalletClient({
     } catch {}
   }, [page, size]);
 
-  // Fresh balance trên mount + khi tab trở lại foreground — chống Next.js router
-  // cache serve RSC payload cũ + chống case Supabase WS dropped khi tab nền.
   useEffect(() => {
     let cancelled = false;
     const refresh = () => {
@@ -112,7 +109,6 @@ export default function WalletClient({
         } else if (data.reason === 'refund' && data.delta > 0) {
           toast.success(`Hoàn ${formatVnd(data.delta)} về ví`);
         }
-        // Sự kiện mới (charge/topup/credit) → nhảy về trang 1 để user thấy ngay.
         if (page !== 1) {
           const np = new URLSearchParams(params);
           np.set('page', '1');
@@ -160,35 +156,35 @@ export default function WalletClient({
   };
 
   return (
-    <div className="min-h-screen px-6 py-12 text-[#0f0a08]">
+    <div className="min-h-screen px-6 py-12">
       <div className="max-w-4xl mx-auto">
         <h1
-          className="text-4xl md:text-5xl font-serif italic"
+          className="text-4xl md:text-5xl font-serif italic text-parchment"
           style={{ fontFamily: SERIF_FONT }}
         >
           Ví của tôi
         </h1>
-        <p className="mt-2 text-[14px] text-[#4a3a30]">
+        <p className="mt-2 text-[14px] text-parchment/50">
           Nạp tối thiểu {formatVnd(minTopup)} · Mỗi lần luận giải{' '}
-          <strong>{formatVnd(readingPrice)}</strong>
+          <strong className="text-parchment">{formatVnd(readingPrice)}</strong>
         </p>
 
         {/* Balance card */}
-        <div className="mt-6 rounded-3xl p-6 md:p-8 shadow-[0_24px_60px_-30px_rgba(90,58,26,0.35)] border border-[#c89146]/55 bg-gradient-to-br from-[#f5e3c0] to-[#e9c98a]">
+        <div className="mt-6 rounded-3xl p-6 md:p-8 border border-gold/40 bg-gradient-to-br from-gold-deep/30 to-cosmic-panel shadow-goldGlow">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="flex-1 min-w-[240px]">
-              <div className="text-[10px] tracking-[0.3em] uppercase text-[#4a3a30] font-semibold">
+              <div className="text-[10px] tracking-[0.3em] uppercase text-parchment/50 font-semibold">
                 Số dư ví
               </div>
               <div
-                className="mt-1 text-5xl md:text-6xl font-serif italic text-[#5a3a1a]"
+                className="mt-1 text-5xl md:text-6xl font-serif italic text-gold"
                 style={{ fontFamily: SERIF_FONT }}
               >
                 {formatVnd(balance)}
               </div>
-              <div className="mt-2 text-[14px] text-[#0f0a08]">{userName}</div>
-              <div className="mt-1 text-[13px] text-[#4a3a30]">
-                Tương đương <strong className="text-[#5a3a1a]">{balanceReadings}</strong>{' '}
+              <div className="mt-2 text-[14px] text-parchment">{userName}</div>
+              <div className="mt-1 text-[13px] text-parchment/50">
+                Tương đương <strong className="text-gold">{balanceReadings}</strong>{' '}
                 lần luận giải
                 {balance > 0 && balance % readingPrice > 0
                   ? ` (dư ${formatVnd(balance % readingPrice)})`
@@ -197,14 +193,14 @@ export default function WalletClient({
             </div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#3a8a5e]/15 border border-[#3a8a5e]/40">
               <span className="w-2 h-2 rounded-full bg-[#3a8a5e] animate-pulse" />
-              <span className="text-[11px] tracking-[0.2em] font-bold uppercase text-[#2a6e48]">
+              <span className="text-[11px] tracking-[0.2em] font-bold uppercase text-[#3a8a5e]">
                 Realtime
               </span>
             </div>
           </div>
 
           {balance < readingPrice && (
-            <div className="mt-4 rounded-xl border border-[#c8361d]/40 bg-[#c8361d]/10 px-4 py-2.5 text-[#c8361d] text-[13.5px]">
+            <div className="mt-4 rounded-xl border border-brand-vermilion/40 bg-brand-vermilion/10 px-4 py-2.5 text-brand-vermilion text-[13.5px]">
               ⚠ Số dư không đủ cho 1 lần luận giải. Nạp ngay để dùng.
             </div>
           )}
@@ -212,25 +208,25 @@ export default function WalletClient({
 
         {/* Topup form */}
         {!pending && (
-          <div className="mt-6 rounded-3xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/96 p-6 md:p-8">
+          <div className="mt-6 rounded-3xl border border-gold/25 bg-cosmic-panel p-6 md:p-8">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-2xl">✦</span>
+              <span className="text-2xl text-gold">✦</span>
               <h2
-                className="text-2xl font-serif text-[#0f0a08]"
+                className="text-2xl font-serif text-parchment"
                 style={{ fontFamily: SERIF_FONT }}
               >
                 Nạp tiền vào ví
               </h2>
             </div>
 
-            <p className="text-[13.5px] text-[#4a3a30] leading-relaxed mb-5">
+            <p className="text-[13.5px] text-parchment/55 leading-relaxed mb-5">
               Nhập số tiền muốn nạp (tối thiểu{' '}
-              <strong>{formatVnd(minTopup)}</strong>). Mỗi lần luận giải{' '}
-              <strong>{formatVnd(readingPrice)}</strong>, trừ ngay khi xem. Không
+              <strong className="text-parchment">{formatVnd(minTopup)}</strong>). Mỗi lần luận giải{' '}
+              <strong className="text-parchment">{formatVnd(readingPrice)}</strong>, trừ ngay khi xem. Không
               có giới hạn thời gian, tiêu hết thì nạp tiếp.
             </p>
 
-            <label className="block text-[11px] tracking-[0.2em] uppercase text-[#4a3a30] font-semibold mb-2">
+            <label className="block text-[11px] tracking-[0.2em] uppercase text-parchment/50 font-semibold mb-2">
               Số tiền (VND)
             </label>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-3">
@@ -241,8 +237,8 @@ export default function WalletClient({
                   onClick={() => setAmountInput(String(a))}
                   className={`px-2 py-2 rounded-xl text-[12.5px] font-semibold border-2 transition ${
                     amountVnd === a
-                      ? 'border-[#5a3a1a] bg-gradient-to-br from-[#f5e3c0] to-[#e9c98a] text-[#5a3a1a]'
-                      : 'border-[#4a6c7a]/30 bg-[#fbf3e2]/85 hover:border-[#4a6c7a]/55 text-[#0f0a08]'
+                      ? 'border-gold bg-gold/20 text-gold'
+                      : 'border-gold/20 bg-cosmic-raised text-parchment/60 hover:border-gold/45 hover:text-parchment'
                   }`}
                 >
                   {formatVnd(a)}
@@ -255,11 +251,11 @@ export default function WalletClient({
               value={amountInput}
               onChange={(e) => setAmountInput(e.target.value.replace(/\D/g, ''))}
               placeholder={`Tối thiểu ${minTopup}`}
-              className="w-full h-12 px-4 rounded-2xl border border-[#4a6c7a]/35 bg-[#fbf3e2] text-[#0f0a08] text-lg font-mono focus:outline-none focus:border-[#4a6c7a] focus:ring-2 focus:ring-[#4a6c7a]/15 transition"
+              className="w-full h-12 px-4 rounded-2xl border border-gold/20 bg-cosmic-raised text-parchment text-lg font-mono placeholder:text-parchment/30 focus:outline-none focus:border-gold/55 focus:ring-2 focus:ring-gold/15 transition"
             />
 
             {amountVnd > 0 && (
-              <div className="mt-2 text-[12.5px] text-[#4a3a30]">
+              <div className="mt-2 text-[12.5px] text-parchment/55">
                 {amountValid ? (
                   <>
                     Sau khi nạp:{' '}
@@ -267,13 +263,13 @@ export default function WalletClient({
                       {formatVnd(balance + amountVnd)}
                     </strong>{' '}
                     · đủ cho{' '}
-                    <strong className="text-[#5a3a1a]">
+                    <strong className="text-gold">
                       {Math.floor((balance + amountVnd) / readingPrice)} lần
                     </strong>{' '}
                     luận giải (riêng đợt nạp này {readingsCovered} lần).
                   </>
                 ) : (
-                  <span className="text-[#c8361d]">
+                  <span className="text-brand-vermilion">
                     Tối thiểu {formatVnd(minTopup)}.
                   </span>
                 )}
@@ -281,7 +277,7 @@ export default function WalletClient({
             )}
 
             {error && (
-              <div className="mt-3 rounded-xl border border-[#c8361d]/40 bg-[#c8361d]/10 px-4 py-2.5 text-[#c8361d] text-[13.5px]">
+              <div className="mt-3 rounded-xl border border-brand-vermilion/40 bg-brand-vermilion/10 px-4 py-2.5 text-brand-vermilion text-[13.5px]">
                 ⚠ {error}
               </div>
             )}
@@ -290,29 +286,29 @@ export default function WalletClient({
               type="button"
               onClick={requestTopup}
               disabled={!amountValid || submitting}
-              className="mt-4 w-full h-12 rounded-full bg-gradient-to-r from-[#5a3a1a] via-[#7a4a1f] to-[#c89146] text-[#fbf3e2] font-semibold tracking-wide hover:from-[#4a6c7a] hover:via-[#8a5520] hover:to-[#d4a05a] transition shadow-[0_10px_30px_-10px_rgba(90,58,26,0.6)] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-4 w-full h-12 rounded-full bg-gradient-to-r from-gold-deep via-gold to-gold-light text-cosmic-DEFAULT font-semibold tracking-wide hover:brightness-110 transition shadow-goldGlow disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {submitting
                 ? 'Đang tạo lệnh nạp…'
                 : `Tạo lệnh nạp ${amountValid ? formatVnd(amountVnd) : ''}`}
             </button>
 
-            <p className="mt-3 text-[12px] text-[#4a3a30] leading-relaxed">
+            <p className="mt-3 text-[12px] text-parchment/40 leading-relaxed">
               Sau khi bấm, hệ thống sinh mã chuyển khoản. Bạn chuyển khoản với
               nội dung CK đúng mã → admin xác nhận → số dư cộng vào ví{' '}
-              <strong>tức thời</strong> (realtime).
+              <strong className="text-parchment/70">tức thời</strong> (realtime).
             </p>
           </div>
         )}
 
         {/* Pending instructions */}
         {pending && (
-          <div className="mt-6 rounded-3xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/96 p-6 md:p-8">
+          <div className="mt-6 rounded-3xl border border-gold/25 bg-cosmic-panel p-6 md:p-8">
             <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🏦</span>
                 <h2
-                  className="text-2xl font-serif text-[#0f0a08]"
+                  className="text-2xl font-serif text-parchment"
                   style={{ fontFamily: SERIF_FONT }}
                 >
                   Chuyển khoản theo thông tin
@@ -321,16 +317,16 @@ export default function WalletClient({
               <button
                 type="button"
                 onClick={() => setPending(null)}
-                className="text-[12px] text-[#4a6c7a] hover:text-[#5a3a1a] underline"
+                className="text-[12px] text-gold/60 hover:text-gold underline transition"
               >
                 Tạo lệnh khác
               </button>
             </div>
 
-            <div className="rounded-xl border border-[#c89146]/45 bg-[#f5e3c0]/40 px-4 py-3 mb-5 text-[#5a3a1a] text-[13.5px]">
-              Đang chờ nạp: <strong>{formatVnd(pending.amountVnd)}</strong> ·
+            <div className="rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 mb-5 text-parchment text-[13.5px]">
+              Đang chờ nạp: <strong className="text-gold">{formatVnd(pending.amountVnd)}</strong> ·
               tương đương{' '}
-              <strong>{Math.floor(pending.amountVnd / readingPrice)} lần luận giải</strong>
+              <strong className="text-gold">{Math.floor(pending.amountVnd / readingPrice)} lần luận giải</strong>
             </div>
 
             <div className="grid md:grid-cols-[200px_1fr] gap-6 items-start">
@@ -340,14 +336,14 @@ export default function WalletClient({
                   <img
                     src={bank.qrImageUrl}
                     alt="QR chuyển khoản"
-                    className="w-48 h-48 rounded-xl border border-[#4a6c7a]/30 bg-white p-2 object-contain"
+                    className="w-48 h-48 rounded-xl border border-gold/30 bg-white p-2 object-contain"
                   />
                 ) : (
-                  <div className="w-48 h-48 rounded-xl border-2 border-dashed border-[#c89146]/55 flex items-center justify-center text-center text-[12px] text-[#4a3a30] p-3">
+                  <div className="w-48 h-48 rounded-xl border-2 border-dashed border-gold/35 flex items-center justify-center text-center text-[12px] text-parchment/40 p-3">
                     Admin chưa cấu hình QR
                   </div>
                 )}
-                <div className="text-[11px] tracking-[0.2em] uppercase text-[#4a3a30]">
+                <div className="text-[11px] tracking-[0.2em] uppercase text-parchment/40">
                   Quét QR
                 </div>
               </div>
@@ -356,22 +352,11 @@ export default function WalletClient({
                 <Row label="Ngân hàng" value={bank?.bankName || '—'} />
                 <Row label="Số tài khoản" value={bank?.accountNumber || '—'} copy />
                 <Row label="Chủ TK" value={bank?.accountHolder || '—'} />
-                <Row
-                  label="Số tiền"
-                  value={formatVnd(pending.amountVnd)}
-                  copy
-                  bold
-                />
-                <Row
-                  label="Nội dung CK"
-                  value={ckContent(pending.bankRef)}
-                  copy
-                  bold
-                  highlight
-                />
-                <p className="mt-3 text-[12.5px] leading-relaxed text-[#4a3a30] border-l-2 border-[#c89146] pl-3">
-                  <strong>QUAN TRỌNG:</strong> Ghi đúng nội dung CK{' '}
-                  <code className="font-mono text-[#c8361d]">
+                <Row label="Số tiền" value={formatVnd(pending.amountVnd)} copy bold />
+                <Row label="Nội dung CK" value={ckContent(pending.bankRef)} copy bold highlight />
+                <p className="mt-3 text-[12.5px] leading-relaxed text-parchment/55 border-l-2 border-gold pl-3">
+                  <strong className="text-parchment">QUAN TRỌNG:</strong> Ghi đúng nội dung CK{' '}
+                  <code className="font-mono text-brand-vermilion">
                     {ckContent(pending.bankRef)}
                   </code>
                   . Sau khi admin xác nhận, số dư sẽ cộng tức thời vào ví của bạn.
@@ -382,30 +367,27 @@ export default function WalletClient({
         )}
 
         {/* History */}
-        <div className="mt-6 rounded-3xl border border-[#4a6c7a]/45 bg-[#fbf3e2]/96 p-6 md:p-8">
+        <div className="mt-6 rounded-3xl border border-gold/25 bg-cosmic-panel p-6 md:p-8">
           <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
             <div className="flex items-center gap-3">
               <span className="text-2xl">📜</span>
               <h2
-                className="text-2xl font-serif text-[#0f0a08]"
+                className="text-2xl font-serif text-parchment"
                 style={{ fontFamily: SERIF_FONT }}
               >
                 Lịch sử giao dịch
               </h2>
             </div>
             {historyTotal > 0 && (
-              <span className="text-[12px] text-[#4a3a30]">
-                Tổng <strong className="text-[#5a3a1a] tabular-nums">{historyTotal}</strong> giao dịch
+              <span className="text-[12px] text-parchment/40">
+                Tổng <strong className="text-gold tabular-nums">{historyTotal}</strong> giao dịch
               </span>
             )}
           </div>
           {historyTotal === 0 ? (
-            <p className="text-[14px] text-[#4a3a30] italic">
+            <p className="text-[14px] text-parchment/50 italic">
               Chưa có giao dịch nào.{' '}
-              <Link
-                href="/xem-tu-vi"
-                className="text-[#4a6c7a] hover:text-[#5a3a1a] underline"
-              >
+              <Link href="/xem-tu-vi" className="text-gold/70 hover:text-gold underline transition">
                 Bắt đầu xem Tử Vi
               </Link>
             </p>
@@ -449,16 +431,16 @@ function Row({
     <div
       className={`flex items-center justify-between gap-3 rounded-lg px-3 py-2 ${
         highlight
-          ? 'bg-[#c89146]/15 border border-[#c89146]/45'
-          : 'bg-[#fbf3e2]/60 border border-[#4a6c7a]/20'
+          ? 'bg-gold/15 border border-gold/35'
+          : 'bg-cosmic-raised border border-gold/15'
       }`}
     >
-      <div className="text-[11px] tracking-[0.2em] uppercase text-[#4a3a30] font-semibold">
+      <div className="text-[11px] tracking-[0.2em] uppercase text-parchment/40 font-semibold">
         {label}
       </div>
       <div className="flex items-center gap-2 min-w-0">
         <span
-          className={`truncate font-mono ${bold ? 'text-[15px] font-bold text-[#5a3a1a]' : 'text-[13.5px] text-[#0f0a08]'}`}
+          className={`truncate font-mono ${bold ? 'text-[15px] font-bold text-gold' : 'text-[13.5px] text-parchment'}`}
         >
           {value}
         </span>
@@ -467,7 +449,7 @@ function Row({
             type="button"
             onClick={onCopy}
             title="Copy"
-            className="px-2 py-0.5 rounded text-[11px] tracking-wider uppercase font-semibold text-[#4a6c7a] hover:bg-[#fbf3e2] border border-[#4a6c7a]/30"
+            className="px-2 py-0.5 rounded text-[11px] tracking-wider uppercase font-semibold text-gold/70 hover:text-gold border border-gold/25 hover:border-gold/55 transition"
           >
             Copy
           </button>
@@ -494,14 +476,12 @@ function chargeLabel(meta: any): string {
 
 function TxRow({ tx }: { tx: Tx }) {
   const isCharge = tx.type === 'charge';
-  const isCredit = tx.amountVnd > 0;
 
   const typeLabel: Record<string, string> = {
     topup: 'Nạp tiền',
     charge: chargeLabel(tx.metadata),
     refund: 'Hoàn tiền',
-    admin_credit: isCredit ? 'Admin cộng tiền' : 'Admin trừ tiền',
-    // Legacy (model PRO cũ — sẽ không tạo mới nữa):
+    admin_credit: tx.amountVnd > 0 ? 'Admin cộng tiền' : 'Admin trừ tiền',
     subscription: 'Mua gói PRO (cũ)',
     admin_extend: 'Admin gia hạn (cũ)',
   };
@@ -515,24 +495,24 @@ function TxRow({ tx }: { tx: Tx }) {
     pending: '#c89146',
     completed: '#3a8a5e',
     rejected: '#c8361d',
-    cancelled: '#4a3a30',
+    cancelled: '#4a6c7a',
   };
-  const c = statusColor[tx.status] ?? '#4a3a30';
+  const c = statusColor[tx.status] ?? '#4a6c7a';
 
   return (
-    <div className="flex items-center justify-between gap-3 rounded-xl border border-[#4a6c7a]/25 bg-[#fbf3e2]/70 px-4 py-3">
+    <div className="flex items-center justify-between gap-3 rounded-xl border border-gold/15 bg-cosmic-raised px-4 py-3 hover:border-gold/30 transition">
       <div className="min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-[14px] font-semibold text-[#0f0a08]">
+          <span className="text-[14px] font-semibold text-parchment">
             {typeLabel[tx.type] ?? tx.type}
           </span>
           {tx.bankRef && (
-            <code className="text-[11px] text-[#4a3a30] font-mono">
+            <code className="text-[11px] text-parchment/40 font-mono">
               {tx.bankRef}
             </code>
           )}
         </div>
-        <div className="text-[12px] text-[#4a3a30]">
+        <div className="text-[12px] text-parchment/40">
           {new Date(tx.createdAt).toLocaleString('vi-VN')}
         </div>
       </div>
@@ -549,7 +529,7 @@ function TxRow({ tx }: { tx: Tx }) {
         </span>
         <span
           className={`text-[15px] font-bold ${
-            isCharge || tx.amountVnd < 0 ? 'text-[#c8361d]' : 'text-[#3a8a5e]'
+            isCharge || tx.amountVnd < 0 ? 'text-brand-vermilion' : 'text-[#3a8a5e]'
           }`}
         >
           {isCharge || tx.amountVnd < 0 ? '' : '+'}
